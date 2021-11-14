@@ -248,15 +248,28 @@ return [
             'text' => 'Administración',
             'url'  => '#',
             'icon' => 'fas fa-fw fa-unlock',
-            //'can' => 'admin.users.index',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Autorización vacaciones',
                     'url' => 'vacaciones',
+                    'can' => 'vacaciones',
                 ],
                 [
                     'text' => 'Asignar roles',
                     'url' => 'admin/users',
+                    'can' => 'roles',
+                ],
+                [
+                    'text' => 'Administrar periodos vacacionales',
+                    'url' => 'registro',
+                    'can' => 'periodos',
+                ],
+
+                [
+                    'text' => 'Administrar dias feriados',
+                    'url' => 'diaferiado',
+                    'can' => 'diaferiado',
                 ],
             ]
         ],
@@ -293,6 +306,7 @@ return [
                 'text' => 'Empleados',
                 'url'  => 'empleado',
                 'icon' => 'fas fa-fw fa-users',
+                'can' => 'empleados',
                 'submenu' => [
                 [
                     'text' => 'Alta',
@@ -363,16 +377,9 @@ return [
                                 [
                                     'text' => 'Imprimir formato',
                                     'url' => 'formato',
+                                    'can' => 'formato',
                                 ],
-                                [
-                                    'text' => 'Administrar periodos vacacionales',
-                                    'url' => 'registro',
-                                ],
-
-                                [
-                                    'text' => 'Administrar dias feriados',
-                                    'url' => 'diaferiado',
-                                ],
+                                
                             ],
                         ],
                         [
