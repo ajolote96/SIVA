@@ -8,7 +8,9 @@ use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\VacacionesAgendadasController;
 use App\Http\Controllers\VacacionesController;
+use App\Models\VacacionesAgendadas;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,9 @@ Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('ca
 Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update');
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
 
+//Ruta
+Route::resource('vacacionesAgendadas', VacacionesAgendadasController::class);
+Route::get('/vacacionesAgendadas', [ VacacionesAgendadasController::class, 'index']);
 
 //Ruta para el generar excel
 Route::get('formato', [ExportController::class, 'index'])->middleware('can:formato');
@@ -70,8 +75,12 @@ Route::resource('empleado', EmpleadoController::class)->middleware('auth');
 Route::resource('capacitacion', CapacitacionController::class)->middleware('auth');
 Route::resource('direccion', DireccionController::class)->middleware('auth');
 Route::resource('solicitud', SolicitudController::class)->middleware('auth');
+Route::resource('vacacionesAgendadas', VacacionesAgendadasController::class)->middleware('auth');
 Auth::routes();
 
+//Route::group(['middleware'=>['auth']],function(){
+ //   Route::resource('vacacionesAgendadas', VacacionesAgendadasController::class);
+//});
 // Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
 
 Route::group(['middleware'=>['auth']],function(){
