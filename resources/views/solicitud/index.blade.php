@@ -28,7 +28,7 @@
 @section('title', 'SIPSUTERMCFE')
 
 
-    <h1>Solicitud Vacaciones Empleados</h1><br/>
+    <h1>Registro de Vacaciones Empleados</h1><br/>
 
 
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\VacacionesController;
 
@@ -32,32 +33,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Rutas para la eleaboracion de periodos
+Route::get('/periodo', [PeriodoController::class, 'index']);
 
-Route::get('/registro', function () {
-    return view('registro.index');
-});
 
+//Rutas para las solicitudes
 Route::get('/solicitud', [SolicitudController::class, 'index']);
 Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
 
 //Ruta para los dias feriados
-Route::get('diaferiado', [DiaFeriadoController::class, 'index'])->name('diaferiado.index');
+Route::get('diaferiado', [DiaFeriadoController::class, 'index'])->middleware('can:diaferiado')->name('diaferiado.index');
 
-Route::post('diaferiado', [DiaFeriadoController::class, 'store'])->name('diaferiado.store');
+Route::post('diaferiado', [DiaFeriadoController::class, 'store'])->middleware('can:diaferiado')->name('diaferiado.store');
 
-Route::resource('diaferiado', DiaFeriadoController::class);
+Route::resource('diaferiado', DiaFeriadoController::class)->middleware('can:diaferiado');
 
 
 Route::resource('vacaciones', VacacionesController::class);
-Route::get('vacaciones', [VacacionesController::class, 'index'])->name('vacaciones.index');
-Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->name('vacaciones.update');
+Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones.index');
+Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update');
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
 
 
 //Ruta para el generar excel
-Route::get('formato', [ExportController::class, 'index']);
-
-Route::get('formato/excel', [SolicitudController::class, 'export'])->name('formato.export');
+Route::get('formato', [ExportController::class, 'index'])->middleware('can:formato');
+Route::get('formato/excel', [SolicitudController::class, 'export'])->middleware('can:formato')->name('formato.export');
 
 /*Route::get('/usuario', function () {
     return view('usuario.index');

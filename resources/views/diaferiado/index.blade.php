@@ -9,10 +9,15 @@
 <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
 <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
 
+
+
+@section('javascripts')
+    <script src="<?php echo asset('js/feriado.js') ?>"></script>
+    
+
+@show
+
 @endsection
-
-
-
 @section('title', 'SIPSUTERMCFE')
 <h1>Administracion de dias feriados</h1><br/>
 

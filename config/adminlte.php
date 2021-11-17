@@ -262,7 +262,7 @@ return [
                 ],
                 [
                     'text' => 'Administrar periodos vacacionales',
-                    'url' => 'registro',
+                    'url' => 'periodo',
                     'can' => 'periodos',
                 ],
 
@@ -270,6 +270,11 @@ return [
                     'text' => 'Administrar dias feriados',
                     'url' => 'diaferiado',
                     'can' => 'diaferiado',
+                ],
+                [
+                    'text' => 'Imprimir formato',
+                    'url' => 'formato',
+                    'can' => 'formato',
                 ],
             ]
         ],
@@ -374,11 +379,7 @@ return [
                                     'text' => 'Consultar vacaciones',
                                     'url' => 'evento',
                                 ],
-                                [
-                                    'text' => 'Imprimir formato',
-                                    'url' => 'formato',
-                                    'can' => 'formato',
-                                ],
+                                
                                 
                             ],
                         ],

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RegistroController extends Controller
+class PeriodoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        //
+        return view('periodo.index');
     }
 
     /**

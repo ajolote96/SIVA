@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'vacaciones.edit'])->syncRoles([$jefe_rhz, $jefe_rhd]);
         Permission::create(['name' => 'vacaciones.update'])->syncRoles([$jefe_rhz, $jefe_rhd]);
 
-        //Permiso para no ver el modulo de administracion
+        //Permiso para ver el modulo de administracion
         $permiso0 = Permission::create(['name' => 'admin']); //Todos los jefes pueden ver el modulo de admin, mas manipularlo esta en restricciones 
 
         $permiso0->assignRole($jefe_sg);
@@ -46,7 +46,7 @@ class RoleSeeder extends Seeder
         $permiso2->assignRole($jefe_rhd);
 
         //Permiso de gestionar los dias feriados
-        $permiso3 = Permission::create(['name' => 'diasferiados']);
+        $permiso3 = Permission::create(['name' => 'diaferiado']);
 
         $permiso3->assignRole($jefe_rhd);
 
