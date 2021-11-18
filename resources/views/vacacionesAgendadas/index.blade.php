@@ -2,8 +2,6 @@
 @section('title', 'SIPSUTERMCFE')
 @section('content_header')
 
-
-
 @section('css')
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"/>
@@ -27,14 +25,11 @@
 @endif
 
 </div>
+<br/>
+<h5>Estas son las vacaciones solicitaste</h5><br/><br/>
 <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
 
     <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
-
-    <th class="text-center" >
-        RPE
-    </th>
-
     <th class="text-center">
         Periodo
     </th>
@@ -51,7 +46,6 @@
     <tbody>
         @foreach ($vacacionesAgendadas as $vacacionesAgendadas)
         <tr>
-            <td>{{$vacacionesAgendadas->RPE}}</td>
             <td>{{$vacacionesAgendadas->Nombre}}</td>
             <td>{{$vacacionesAgendadas->Descripcion}}</td>
             <td>{{\Carbon\Carbon::parse($vacacionesAgendadas->FechaInicio)->format('d/m/Y')}}</td>

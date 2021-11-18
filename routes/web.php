@@ -10,7 +10,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\VacacionesAgendadasController;
 use App\Http\Controllers\VacacionesController;
-use App\Models\VacacionesAgendadas;
+use App\Http\Controllers\PorcentajeEmpleadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,13 +52,24 @@ Route::resource('diaferiado', DiaFeriadoController::class)->middleware('can:diaf
 
 
 Route::resource('vacaciones', VacacionesController::class);
+<<<<<<< HEAD
 Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones'); 
 Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update'); 
+=======
+Route::get('vacaciones', [VacacionesController::class, 'index'])//->middleware('can:vacaciones')
+->name('vacaciones.index');
+Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])//->middleware('can:vacaciones')
+->name('vacaciones.update');
+>>>>>>> 0b01479ce7c3ef41139cc22de5918340d728a534
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
 
-//Ruta
+//Ruta para informacion de vaciones por usuario
 Route::resource('vacacionesAgendadas', VacacionesAgendadasController::class);
 Route::get('/vacacionesAgendadas', [ VacacionesAgendadasController::class, 'index']);
+
+//Ruta para obtener el porcentaje de empleados de vacaciones
+Route::resource('porcentajeEmpleado', PorcentajeEmpleadoController::class);
+Route::get('/porcentajeEmpleado', [ PorcentajeEmpleadoController::class, 'index']);
 
 //Ruta para el generar excel
 Route::get('formato', [ExportController::class, 'index'])->middleware('can:formato');
