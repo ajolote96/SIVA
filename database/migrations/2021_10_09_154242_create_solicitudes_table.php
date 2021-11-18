@@ -20,6 +20,9 @@ class CreateSolicitudesTable extends Migration
             $table->text('Descripcion');
             $table->date('FechaInicio');
             $table->date('FechaFin');
+            $table->enum('autoriza_sec',['0','1'])->nullable();
+            $table->enum('autoriza_jefe',['0','1'])->nullable();
+            $table->string('autoriza_email')->nullable();
             $table->timestamps();
         });
     }

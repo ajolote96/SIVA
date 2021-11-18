@@ -13,9 +13,24 @@ class PorcentajeEmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        /*
+       $nombreBuscar = 'Sacoalco';
+       $nombre = $request->get('porcentajeEmpleado');
+       //$porcentajes2[$nombreBuscar] = PorcentajeEmpleado::query()->nombreDepartamento($nombreBuscar);
+        //$totalEmpleado = PorcentajeEmpleado::query()->join('lugar__de__trabajos','zonas.id','=','lugar__de__trabajos.Id_zona_F')
+        //->join('cat__lugar__de__trabajo__empleados','lugar__de__trabajos.id','=','cat__lugar__de__trabajo__empleados.Id_lugar_de_trabajo_F')->where('zonas.Nombre','LIKE','$nombreBuscar')->count();
+        
+        //$total = (15*$totalEmpleado)/100;
+
+        //dd($totalEmpleado);
+        $porcentajes= PorcentajeEmpleado::all();
+        $porcentajes = PorcentajeEmpleado::query()->where('Nombre','LIKE','%Sacoalco%');       
+        return view('porcentajeEmpleado.index',compact('porcentajes','porcentajes2'));
+        */
+        return view('porcentajeEmpleado.index');
     }
 
     /**
