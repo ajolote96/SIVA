@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"/>
     <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
     <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
-
 @endsection
 
 

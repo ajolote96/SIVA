@@ -52,8 +52,8 @@ Route::resource('diaferiado', DiaFeriadoController::class)->middleware('can:diaf
 
 
 Route::resource('vacaciones', VacacionesController::class);
-Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones.index');
-Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update');
+Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones'); 
+Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update'); 
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
 
 //Ruta

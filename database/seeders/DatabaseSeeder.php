@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Jhon Smith',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password')
-            ])->assignRole('Jefe RH (Division)');
+            ])->syncRoles(['Jefe RH (Division)', 'Jefe lugares de trabajo']);
 
         User::factory(10)->create();
 
