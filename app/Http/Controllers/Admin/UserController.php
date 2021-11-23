@@ -12,10 +12,13 @@ class UserController extends Controller
     
     public function index()
     {
-        $user = User::all();
+        $data = User::all();
+        
         //$roles = Role::all();
+        //$roles = $user->getRoleNames();
+        //return dd($all_users_with_all_their_roles);
         //return dd($roles);
-        return view('admin.users.index', compact('user'));
+        return view('admin.users.index', compact('data'));
     }
 
     public function edit(User $user)

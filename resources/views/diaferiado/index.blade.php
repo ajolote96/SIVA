@@ -10,14 +10,19 @@
 <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
 
 
-
 @section('javascripts')
-    <script src="<?php echo asset('js/feriado.js') ?>"></script>
-    
+    <script src="<?php echo asset('js/validaciones.js') ?>"></script>
+    <script type="text/javascript" src=<?php echo asset('https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js') ?>></script>
 
 @show
 
+<style>
+    .table-sortable tbody tr {
+    cursor: move;
+}
+</style>
 @endsection
+
 @section('title', 'SIPSUTERMCFE')
 <h1>Administracion de dias feriados</h1><br/>
 
@@ -58,7 +63,7 @@
                                     </td>
                                     <td>
                                         <label for="">Fecha:</label>
-                                        <input type="date" name="Fecha" id="Fecha">
+                                        <input type="date" name="Fecha" id="Fecha" Onclick="diasferiados1();">
                                     </td>
                                     
                                 </tr>

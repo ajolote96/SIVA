@@ -4,14 +4,14 @@
 
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"/>
 <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
 <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
 
 @endsection
-
-
 
 @section('title', 'SIPSUTERMCFE')
 <h1>Asignacion de roles</h1><br/>
@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-12 table-responsive">
-                    <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                    <table class="table table-bordered table-hover table-sortable" id="users">
                         <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
                             <tr >
                                 <th class="text-center">
@@ -36,13 +36,16 @@
                                     Email
                                 </th>
                                 <th class="text-center">
+                                    Roles
+                                </th>
+                                <th class="text-center">
                                     Accion
                                 </th>
                             
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user as $userr)
+                            @foreach ($data as $key => $userr)
                                 
                             <tr>
                                 <td>
@@ -53,7 +56,17 @@
                                 </td>
                                 <td>
                                     {{$userr->email}}
+                                </td>                      
+                                <td>
+                                @if(!empty($userr->getRoleNames()))
+                                    @foreach($userr->getRoleNames() as $v)
+                                    <label class="badge badge-success">{{ $v }}</label>
+                                    @endforeach
+                                    
+                                @endif 
+                                
                                 </td>
+                               
                                 <td>
                                     <a href="{{route('admin.users.edit', $userr->id)}}" method="post" class="btn btn-sm btn-primary row justify-content-between">Editar</a>
                                 </td>
@@ -68,4 +81,15 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="<?php echo asset('js/validaciones.js') ?>"></script>
+    <script type="text/javascript" src=<?php echo asset('https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js') ?>></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>    
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('#users').DataTable();
+    </script>
 @endsection

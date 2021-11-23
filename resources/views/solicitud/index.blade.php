@@ -173,11 +173,11 @@ for($a=0; $a<=15; $a++){
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="date" class="form-control" name="FechaInicio" id="FechaInicio" value="" Onchange="var diasPas = diasPasados();">
+                                        <input type="date" class="form-control" name="FechaInicio" id="FechaInicio" onchange="var diasPas = diasPasados();"> 
                                     </td>
                                     <td>
                                         <input type="date" class="form-control" name="FechaFin" id="FechaFin" class="FechaFin" value=""  Onchange="var diasDif = myFunction(); console.log(diasDif);
-                                        if(diasDif <= {{$diasHabiles}}){alert('!Los días que elegiste están disponibles!')}else{alert('No puedes elegir más días de los correspondientes')}">
+                                        if(diasDif <= {{$diasHabiles}}){alert('!Los días que elegiste están disponibles!')}else{alert('No puedes elegir más días de los correspondientes')}"> 
                                     </td>
                                     <td>
                                         <textarea name="Descripcion" placeholder="Description" class="form-control" id="Descripcion"></textarea>
