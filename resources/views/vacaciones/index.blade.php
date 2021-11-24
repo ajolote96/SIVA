@@ -18,6 +18,7 @@
 @section('title', 'SIPSUTERMCFE')
 <h1>Vacaciones pendientes por validar</h1><br/>
 
+
 @if (session('mensaje'))
     <div class="alert alert-success" role="alert">
         <strong>Aviso</strong> {{session('mensaje')}}
@@ -250,7 +251,6 @@
 </table>
 
 
-@endsection
 
 <!--RECHAZOS ---------------------------------------------->
 
@@ -371,6 +371,7 @@
     </tbody>
 </table>
 
+@endsection
 
 
 
@@ -384,3 +385,5 @@
         $('#datatable2').DataTable();
     </script>
 @endsection
+
+
