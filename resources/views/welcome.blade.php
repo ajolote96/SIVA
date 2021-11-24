@@ -27,7 +27,8 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('empleado') }}" class="text-8x1 text-black-300 underline">Inicio</a>
+                        <a href="{{ url('empleado') }}" class="text-8x1 text-black-300 underline">Inicio2</a>
+                        
 
                         <!--Esto servira para los permisos y roles-->
                     @else

@@ -27,6 +27,10 @@ Route::get('/empleado', function () {
     return view('empleado.index');
 });
 
+Route::get('/inicio', function () {
+    return view('inicio.index');
+});
+
 Route::get('/capacitacion', function () {
     return view('Capacitacion.index');
 });
@@ -34,6 +38,8 @@ Route::get('/capacitacion', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route::get()
 
 //Rutas para la eleaboracion de periodos
 Route::get('/periodo', [PeriodoController::class, 'index']);
@@ -52,7 +58,7 @@ Route::resource('diaferiado', DiaFeriadoController::class)->middleware('can:diaf
 
 
 Route::resource('vacaciones', VacacionesController::class);
-Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones'); 
+Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones.index'); 
 Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update'); 
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
 
@@ -130,7 +136,7 @@ Route::post('login',function(){
 
         return redirect('empleado.index');
     }
-    return redirect('login');
+    return redirect('empleado.index');
 });
 
 // Route::get('/evento',function (){

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SIPSUTERMCFE',
+    'title' => 'SIVA',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -241,7 +241,7 @@ return [
         ],
         [
             'text' => 'Inicio',
-            'url'  => '#',
+            'url'  => 'inicio',
             'icon' => 'fas fa-fw fa-home',
         ],
         [
@@ -383,14 +383,14 @@ return [
                                 
                             ],
                         ],
-                        [
-                            'text' => 'Permisos',
-                            'url' => '#',
-                        ],
-            [
-                'text' => 'Buzón de sugerencias',
-                'url' => '#',
-            ],
+                        // [
+                        //     'text' => 'Permisos',
+                        //     'url' => '#',
+                        // ],
+            // [
+            //     'text' => 'Buzón de sugerencias',
+            //     'url' => '#',
+            // ],
         ],
     ],
    /* [
@@ -412,11 +412,11 @@ return [
         ],
     ],
 ],*/
-[
-    'text' => 'Centros de trabajo',
-    'url'  => '#',
-    'icon' => 'fas fa-fw fa-wrench',
-],
+// [
+//     'text' => 'Centros de trabajo',
+//     'url'  => '#',
+//     'icon' => 'fas fa-fw fa-wrench',
+// ],
 //[
 //    'text' => 'Calendario de eventos',
 //    'url'  => '#',

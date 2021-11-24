@@ -14,7 +14,7 @@
 
 
 @section('title', 'SIPSUTERMCFE')
-<h1>Autorización de vacaciones</h1><br/>
+<h1>Vacaciones pendientes</h1><br/>
 
 @if (session('mensaje'))
     <div class="alert alert-success" role="alert">
@@ -25,6 +25,17 @@
     </div>
 @endif
 
+@if(session('success'))
+<div class="alert alert-success">
+{{session ('success') }}
+</div>
+@endif
+
+@if(session('delete'))
+<div class="alert alert-danger">
+{{session ('delete') }}
+</div>
+@endif
 
 <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
 
@@ -75,6 +86,7 @@
             --}}
 
             </form>
+
         <form action="{{route('vacaciones.destroy', $validacion->id)}}" method="post">
             @csrf
             @method('delete')
