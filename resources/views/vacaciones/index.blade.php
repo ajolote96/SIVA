@@ -5,6 +5,8 @@
 
 
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"/>
     <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
@@ -14,7 +16,7 @@
 
 
 @section('title', 'SIPSUTERMCFE')
-<h1>Vacaciones pendientes</h1><br/>
+<h1>Vacaciones pendientes por validar</h1><br/>
 
 @if (session('mensaje'))
     <div class="alert alert-success" role="alert">
@@ -37,7 +39,7 @@
 </div>
 @endif
 
-<table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+<table class="table table-bordered table-hover table-sortable text-center" id="datatable">
 
     <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
 
@@ -96,7 +98,7 @@
             <input type="text" name="FechaInicio" id="FechaInicio" value="{{$validacion->FechaInicio}}" hidden="true">
             <input type="text" name="FechaFin" id="FechaFin" value="{{$validacion->FechaFin}}" hidden="true">
             <input type="text" name="autoriza_email" id="autoriza_email" value="{{$user->email}}" hidden="true">
-            <td><button class="btn btn-sm btn-danger row justify-content-between">Eliminar</button></td>
+            <td><button class="btn btn-sm btn-danger row justify-content-between">Rechazar</button></td>
         </form>
     </tr>
         @endif
@@ -107,7 +109,7 @@
 
 
 <h2>Solicitudes autorizadas por el secretario </h2>
-<table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+<table class="table table-bordered table-hover table-sortable text-center" id="datatable1">
 
     <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
 
@@ -155,7 +157,7 @@
 </table>
 
 <h2>Solicitudes autorizadas por el jefe de lugar de trabajo </h2>
-<table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+<table class="table table-bordered table-hover table-sortable text-center" id="datatable2">
 
     <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
 
@@ -201,9 +203,16 @@
 </table>
 
 
+@endsection
 
 
-
-
-
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('#datatable').DataTable();
+        $('#datatable1').DataTable();
+        $('#datatable2').DataTable();
+    </script>
 @endsection

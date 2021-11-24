@@ -134,9 +134,9 @@ Route::post('login',function(){
     if (Auth::attempt($credentials,$remember)){
         request()->session()->regenerate();
 
-        return redirect('empleado.index');
+        return redirect('inicio');
     }
-    return redirect('empleado.index');
+    return redirect('inicio');
 });
 
 // Route::get('/evento',function (){
