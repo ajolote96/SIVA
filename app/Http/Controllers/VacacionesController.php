@@ -48,7 +48,22 @@ class VacacionesController extends Controller
             ->select("empleados.nombre", "empleados.apellidopaterno", "empleados.apellidomaterno", "empleados.correoelectronico")
             ->get();
 
-        return view('vacaciones.index',compact('user','validaciones', 'nombres','solicitud', 'relacion_sec','relacion_jefe'));
+
+            $relacion_sec_rech = DB::table("empleados")
+            ->join("solicitudes", function($join){
+                $join->on("empleados.correoelectronico", "=", "solicitudes.rechaza_email");
+            })
+            ->select("empleados.nombre", "empleados.apellidopaterno", "empleados.apellidomaterno", "empleados.correoelectronico")
+            ->get();
+
+        $relacion_jefe_rech = DB::table("empleados")
+            ->join("solicitudes", function($join){
+                $join->on("empleados.correoelectronico", "=", "solicitudes.rechaza_email");
+            })
+            ->select("empleados.nombre", "empleados.apellidopaterno", "empleados.apellidomaterno", "empleados.correoelectronico")
+            ->get();
+
+        return view('vacaciones.index',compact('user','validaciones', 'nombres','solicitud', 'relacion_sec','relacion_jefe','relacion_sec_rech','relacion_jefe_rech'));
     }
 
     /**
@@ -161,16 +176,106 @@ class VacacionesController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *@param  \Illuminate\Http\Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $vacaciones = Vacaciones::find($id);
 
-        $vacaciones->delete();
+        $vacaciones->RPE = $request->RPE;
+        $vacaciones->Nombre = $request->Nombre;
+        $vacaciones->Descripcion = $request->Descripcion;
+        $vacaciones->FechaInicio = $request->FechaInicio;
+        $vacaciones->FechaFin = $request->FechaFin;
+        $consulta_verificar = DB::table("model_has_roles")
+        ->join("users", function($join){
+            $join->on("users.id", "=", "model_has_roles.model_id")
+            ->where("users.email", "=",  Auth::user()->email);
+        })
+        ->select("model_has_roles.role_id")
+        ->get();
+
+        foreach ($consulta_verificar as $role_id => $key) {
+            if($key->role_id == 2 ){
+                $vacaciones->rechaza_sec = '1';
+            }
+            else if($key->role_id == 3){
+             $vacaciones->rechaza_jefe = '1';
+         }else{
+            
+         }
+        }
+
+        // if($consulta_verificar->role_id == 2)
+        //     $vacaciones->autoriza_sec = '1';
+        // else if($consulta_verificar->role_id == 3){
+        //     $vacaciones->autoriza_jefe = '1';
+        // }else{
+        //     //
+        // }
+
+        //$vacaciones->autoriza_jefe = '1';
+        $vacaciones->rechaza_email = $request->rechaza_email;
+
+        $vacaciones->save();
+        //
+
+        //$vacaciones->delete();
        // Session::flash('message', 'This is a message destoy!');
         return back()->with('delete', 'Solicitud rechazada');
     }
+
+    /** 
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int $id
+    * @return \Illuminate\Http\Response
+    */
+
+    public function rechazar(Request $request, $id){
+        $vacaciones = Vacaciones::find($id);
+
+        $vacaciones->RPE = $request->RPE;
+        $vacaciones->Nombre = $request->Nombre;
+        $vacaciones->Descripcion = $request->Descripcion;
+        $vacaciones->FechaInicio = $request->FechaInicio;
+        $vacaciones->FechaFin = $request->FechaFin;
+        $consulta_verificar = DB::table("model_has_roles")
+        ->join("users", function($join){
+            $join->on("users.id", "=", "model_has_roles.model_id")
+            ->where("users.email", "=",  Auth::user()->email);
+        })
+        ->select("model_has_roles.role_id")
+        ->get();
+
+        foreach ($consulta_verificar as $role_id => $key) {
+            if($key->role_id == 2 ){
+                $vacaciones->rechaza_sec = '1';
+            }
+            else if($key->role_id == 3){
+             $vacaciones->rechaza_jefe = '1';
+         }else{
+            
+         }
+        }
+
+        // if($consulta_verificar->role_id == 2)
+        //     $vacaciones->autoriza_sec = '1';
+        // else if($consulta_verificar->role_id == 3){
+        //     $vacaciones->autoriza_jefe = '1';
+        // }else{
+        //     //
+        // }
+
+        //$vacaciones->autoriza_jefe = '1';
+        $vacaciones->rechaza_email = $request->rechaza_email;
+
+        $vacaciones->save();
+        //return redirect()->route('vacaciones.index');
+        //Session::flash('message', 'This is a message!');
+        return back()->with('delete', 'Solicitud rechazada');
+        
+    }
+
 }

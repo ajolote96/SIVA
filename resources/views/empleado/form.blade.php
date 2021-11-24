@@ -121,7 +121,7 @@ $users2 = \Illuminate\Support\Facades\Auth::user();
 
 </div>
 
-<div class="form-group">
+{{-- <div class="form-group">
 <label for="Rol"> Rol </label>
 
 <select name="Rol" class="form-control "id="Rol">
@@ -131,7 +131,7 @@ $users2 = \Illuminate\Support\Facades\Auth::user();
   <option value="Usuario del sistema">Usuario del sistema</option>
   <option value="Empleado">Empleado</option>
 </select>
-</div>
+</div> --}}
 
 
 <div class="form-group">
@@ -173,7 +173,7 @@ TelefonoCelular') }}">
 </div>
 
 <div class="form-group">
-<label for="EstadoCivil"> EstadoCivil </label>
+<label for="EstadoCivil"> Estado Civil </label>
 <select name="EstadoCivil" class="form-control "id="EstadoCivil">
   <option selected value="{{ isset($empleado->EstadoCivil)?$empleado->EstadoCivil:old('EstadoCivil') }}">{{ isset($empleado->EstadoCivil)?$empleado->EstadoCivil:old('EstadoCivil') }}</option>
   <option value="Soltero">Soltero(a)</option>
@@ -181,21 +181,6 @@ TelefonoCelular') }}">
   <option value="Divorciado">Divorciado(a)</option>
   <option value="Viudo">Viudo(a)</option>
 </select>
-</div>
-
-<div class="form-group">
-<label for="Hijos"> Hijos </label>
-<input type="text" class="form-control" name="Hijos" id="Hijos" value="{{ isset($empleado->Hijos)?$empleado->Hijos:old('Hijos') }}">
-</div>
-
-<div class="form-group">
-<label for="Papa"> Nombre de Papá </label>
-<input type="text" class="form-control" name="Papa" id="Papa" value="{{ isset($empleado->Papa)?$empleado->Papa:old('Papa') }}">
-</div>
-
-<div class="form-group">
-<label for="Mama"> Nombre de Mamá </label>
-<input type="text" class="form-control" name="Mama" id="Mama" value="{{ isset($empleado->Mama)?$empleado->Mama:old('Mama') }}">
 </div>
 
 <div class="form-group">

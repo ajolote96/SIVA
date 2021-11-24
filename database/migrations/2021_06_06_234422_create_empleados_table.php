@@ -26,7 +26,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('TipoSangre');
             $table->string('Alergias');
             $table->string('Padecimientos');
-            $table->string('Rol');
+            //$table->string('Rol');
             $table->string('Domicilio');
             $table->bigInteger('TelefonoCasa');
             $table->bigInteger('TelefonoCelular');
@@ -34,9 +34,6 @@ class CreateEmpleadosTable extends Migration
             $table->string('CorreoElectronico');
             $table->string('Sexo');
             $table->string('EstadoCivil');
-            $table->string('Hijos');
-            $table->string('Papa');
-            $table->string('Mama');
             $table->string('ContactoEmergencia');
             $table->bigInteger('TelefonoEmergencia');
             $table->text('CursosParticipaba');

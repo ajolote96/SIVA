@@ -21,7 +21,7 @@ class Empleado extends Model
          'TipoSangre'=>'required',
          'Alergias'=>'required',
          'Padecimientos'=>'required',
-         'Rol'=>'required',
+         //'Rol'=>'required',
          'Domicilio'=>'required',
          'TelefonoCasa'=>'required',
          'TelefonoCelular'=>'required',
@@ -29,16 +29,13 @@ class Empleado extends Model
          'CorreoElectronico'=>'required',
          'Sexo'=>'required',
          'EstadoCivil'=>'required',
-         'Hijos'=>'required',
-         'Papa'=>'required',
-         'Mama'=>'required',
          'ContactoEmergencia'=>'required',
          'TelefonoEmergencia'=>'required',
          'CursosParticipaba'=>'required',
          
     ];
 
-    protected $fillable=['Nombre','ApellidoPaterno','ApellidoMaterno','Contrato','RPE','IMMS','FechaIngreso','RFC','TipoSangre','Alergias','Padecimientos','Rol','Domicilio','TelefonoCasa','TelefonoCelular','FechaNacimiento','CorreoElectronico','Sexo','EstadoCivil','Hijos','Papa','Mama','ContactoEmergencia','TelefonoEmergencia','CusosParticipaba'];
+    protected $fillable=['Nombre','ApellidoPaterno','ApellidoMaterno','Contrato','RPE','IMMS','FechaIngreso','RFC','TipoSangre','Alergias','Padecimientos','Domicilio','TelefonoCasa','TelefonoCelular','FechaNacimiento','CorreoElectronico','Sexo','EstadoCivil','ContactoEmergencia','TelefonoEmergencia','CusosParticipaba'];
 
     protected $dates = [
         'TelefonoCasa',

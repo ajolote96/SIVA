@@ -42,6 +42,7 @@
             <th>Contacto de emergencia</th>
             <th>Telefono de emergencia</th>
             <th>Cursos que Participa</th>
+            <th>Acciones</th>
         </tr>
     </thead>
 
@@ -58,13 +59,13 @@
             <td>{{ $empleado->CursosParticipaba }}</td>
             
             <td>
-            <!-- <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
+             <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
             Editar
             </a>
             <form action="{{ url('/empleado/'.$empleado->id) }}"  method="post" class="d-inline">
             @csrf
             {{ method_field('DELETE') }}
-            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> -->
+            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> 
             </form>
             </td>
         </tr>
@@ -87,9 +88,7 @@
             <th>Fecha de nacimiento</th>
             <th>Sexo</th>
             <th>Estado Civil</th>
-            <th>Hijos</th>
-            <th>Papa</th>
-            <th>Mama</th>
+            <th>Acciones</th>
         </tr>
     </thead>
 
@@ -106,18 +105,15 @@
             <td>{{ $empleado->FechaNacimiento}}</td>
             <td>{{ $empleado->Sexo }}</td>
             <td>{{ $empleado->EstadoCivil}}</td>
-            <td>{{ $empleado->Hijos }}</td>
-            <td>{{ $empleado->Papa }}</td>
-            <td>{{ $empleado->Mama }}</td>
 
             <td>
-            <!-- <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
+             <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
             Editar
             </a>
             <form action="{{ url('/empleado/'.$empleado->id) }}"  method="post" class="d-inline">
             @csrf
             {{ method_field('DELETE') }}
-            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> -->
+            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> 
             </form>
             </td>
         </tr>
@@ -138,6 +134,8 @@
             <th>Telefono celular</th>
             <th>Fecha de nacimiento</th>
             <th>Correo electrónico</th>
+            <th>Acciones</th>
+
         </tr>
     </thead>
 
@@ -151,14 +149,14 @@
             <td>{{ $empleado->FechaNacimiento}}</td>
             <td>{{ $empleado->CorreoElectronico }}</td>
 
-            <!-- <td>
+             <td>
             <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
             Editar
             </a>
             <form action="{{ url('/empleado/'.$empleado->id) }}"  method="post" class="d-inline">
             @csrf
             {{ method_field('DELETE') }}
-            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> -->
+            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Deseas borrar?')" value="Borrar"> 
             </form>
             </td>
         </tr>

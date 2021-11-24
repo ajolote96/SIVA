@@ -308,20 +308,20 @@ return [
                 ],
             ],*/
             [
-                'text' => 'Empleados',
+                'text' => 'Gestión empleados',
                 'url'  => 'empleado',
                 'icon' => 'fas fa-fw fa-users',
                 'can' => 'empleados',
-                'submenu' => [
-                [
-                    'text' => 'Alta',
-                    'url' => 'empleado/create',
-                ],
-                [
-                    'text' => 'Baja',
-                    'url' => 'empleado/baja',
-                ],
-            ],
+             //   'submenu' => [
+                // [
+                //     'text' => 'Alta',
+                //     'url' => 'empleado/create',
+                // ],
+                // [
+                //     'text' => 'Baja',
+                //     'url' => 'empleado/baja',
+                // ],
+           // ],
         ],
         // [
         //     'text' => 'Registro de asistencias',
