@@ -24,6 +24,26 @@
   </tr>
 </table>
   @endforeach
+  @foreach($almacenados as $almacenado)
+  <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+    <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
+    <th class="text-center">Periodo</th>
+    <th class="text-center">Descripcion</th>
+    <th class="text-center">Fecha Inicio</th>
+    <th class="text-center">Fecha Fin</th>
+    </tr>
+    <tbody>
+        @foreach ($almacenados as $almacenado)
+        <tr>
+            <td>{{$almacenado->Nombre}}</td>
+            <td>{{$almacenado->Descripcion}}</td>
+            <td>{{\Carbon\Carbon::parse($almacenado->FechaInicio)->format('d/m/Y')}}</td>
+            <td>{{\Carbon\Carbon::parse($almacenado->FechaFin)->format('d/m/Y')}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+  @endforeach
 
 @endsection
 
