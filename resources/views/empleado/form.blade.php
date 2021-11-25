@@ -37,7 +37,7 @@ $users2 = \Illuminate\Support\Facades\Auth::user();
 
 <div class="form-group">
 <label for="Nombre"> Nombre </label>
-<input type="text" class="form-control" name="Nombre" id="Nombre" value="{{ isset($empleado->Nombre)?$empleado->Nombre:$users2->name}}">
+<input type="text" class="form-control" name="Nombre" id="Nombre" value="{{ isset($empleado->Nombre)?$empleado->Nombre:old('Nombre')}}">
 </div>
 
 <div class="form-group">
@@ -158,7 +158,7 @@ TelefonoCelular') }}">
 
 <div class="form-group">
 <label for="CorreoElectronico"> Correo Electronico </label>
-<input type="text" class="form-control" name="CorreoElectronico" id="CorreoElectronico" value="{{ isset($empleado->CorreoElectronico)?$empleado->CorreoElectronico:$users2->email }}">
+<input type="text" class="form-control" name="CorreoElectronico" id="CorreoElectronico" value="{{ isset($empleado->CorreoElectronico)?$empleado->CorreoElectronico:old('CorreoElectronico') }}">
 </div>
 
 
