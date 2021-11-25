@@ -53,6 +53,12 @@ $users2 = \Illuminate\Support\Facades\Auth::user();
 </div>
 
 <div class="form-group">
+  <label for="IdLugarDeTrabajo"> ID Lugar de trabajo </label>
+  <input type="text" class="form-control" name="IdLugarDeTrabajo" id="IdLugarDeTrabajo" value="{{ isset($empleado->IdLugarDeTrabajo)?$empleado->IdLugarDeTrabajo:old('IdLugarDeTrabajo') }}">
+  
+  </div>
+
+<div class="form-group">
 <label for="Contrato"> Contrato </label>
 
 <select name="Contrato" class="form-control "id="Contrato">

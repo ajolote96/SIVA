@@ -19,6 +19,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('ApellidoPaterno');
             $table->string('ApellidoMaterno');
             $table->string('Contrato');
+            $table->string('IdLugarDeTrabajo');
             $table->string('RPE');
             $table->string('IMMS');
             $table->date('FechaIngreso');
