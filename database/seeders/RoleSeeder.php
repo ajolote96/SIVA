@@ -60,6 +60,8 @@ class RoleSeeder extends Seeder
 
         $permiso5->assignRole($jefe_rhz);
         $permiso5->assignRole($jefe_rhd);
+        $permiso5->assignRole($jefe_sg);
+        $permiso5->assignRole($jefe_lt);
 
          //Imprimir el formato de vacaciones
          $permiso6 = Permission::create(['name' => 'formato']);

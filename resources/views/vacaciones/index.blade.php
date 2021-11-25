@@ -380,9 +380,9 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        $('#datatable').DataTable();
-        $('#datatable1').DataTable();
-        $('#datatable2').DataTable();
+        //$('#datatable').DataTable();
+        //$('#datatable1').DataTable();
+        //$('#datatable2').DataTable();
     </script>
 @endsection
 
