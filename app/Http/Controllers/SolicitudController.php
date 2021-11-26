@@ -47,6 +47,7 @@ class SolicitudController extends Controller
 
             // Obtiene el ID del Usuario Autenticado
             $user = Auth::user();
+            
 
 
         $solicitud = Empleado::query()->where('CorreoElectronico','=',$user->email)

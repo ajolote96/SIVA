@@ -11,6 +11,7 @@ use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\VacacionesAgendadasController;
 use App\Http\Controllers\VacacionesController;
 use App\Http\Controllers\PorcentajeEmpleadoController;
+use App\Http\Controllers\ShowVacacionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +59,15 @@ Route::resource('diaferiado', DiaFeriadoController::class)->middleware('can:diaf
 
 
 Route::resource('vacaciones', VacacionesController::class);
-Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones.index'); 
+Route::get('vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')->name('vacaciones.index');  
 Route::post('vacaciones/{id}', [VacacionesController::class, 'update'])->middleware('can:vacaciones')->name('vacaciones.update');
 Route::post('vacaciones/{id}', [VacacionesController::class, 'destroy'])->middleware('can:vacaciones')->name('vacaciones.destroy'); 
 //Route::post('vacaciones/{id}', [VacacionesController::class, 'edit'])->name('vacaciones.index');
+
+Route::resource('show', ShowVacacionesController::class);
+Route::get('show', [ShowVacacionesController::class, 'index'])->middleware('can:vacaciones')->name('show.index'); 
+Route::post('show/{id}', [ShowVacacionesController::class, 'update'])->middleware('can:vacaciones')->name('show.update');
+Route::post('show/{id}', [ShowVacacionesController::class, 'destroy'])->middleware('can:vacaciones')->name('show.destroy'); 
 
 //Ruta para informacion de vaciones por usuario
 Route::resource('vacacionesAgendadas', VacacionesAgendadasController::class);

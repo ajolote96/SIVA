@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'jefe autoriza vacaciones',
                 'email' => 'jefe@gmail.com',
                 'password' => bcrypt('password')
-                ])->syncRoles(['Secretario General (Zona)', 'Jefe lugares de trabajo']);
+                ])->syncRoles(['Jefe lugares de trabajo']);
 
         User::create([
                     'name' => 'empleado',

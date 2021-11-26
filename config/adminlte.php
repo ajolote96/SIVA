@@ -256,6 +256,11 @@ return [
                     'can' => 'vacaciones',
                 ],
                 [
+                    'text' => 'Consultar vacaciones autorizas/rechazadas',
+                    'url' => 'show',
+                    'can' => 'vacaciones',
+                ],
+                [
                     'text' => 'Asignar roles',
                     'url' => 'admin/users',
                     'can' => 'roles',

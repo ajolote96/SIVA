@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Controllers\Session;
 
-
-
-class VacacionesController extends Controller
+class ShowVacacionesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +22,6 @@ class VacacionesController extends Controller
      */
     public function index()
     {
-        //
-
         $user = Auth::user();
         
 
@@ -34,10 +30,7 @@ class VacacionesController extends Controller
             // ->select('*')->where('RPE','=','TF567')
             ->first();
 
-        //$validaciones = Vacaciones::all();
-        
-        
-        $validaciones = Vacaciones::paginate(10);
+        $validaciones = Vacaciones::all();
 
         $nombres = DB::table('empleados')->join('solicitudes','empleados.RPE', '=', 'solicitudes.RPE')->select('empleados.*')->get()->all();
         $relacion_sec = DB::table("empleados")
@@ -71,7 +64,7 @@ class VacacionesController extends Controller
 
             
            
-        return view('vacaciones.index', compact('user','validaciones', 'nombres','solicitud', 'relacion_sec','relacion_jefe','relacion_sec_rech','relacion_jefe_rech'));
+        return view('show.index', compact('user','validaciones', 'nombres','solicitud', 'relacion_sec','relacion_jefe','relacion_sec_rech','relacion_jefe_rech'));
     }
 
     /**
