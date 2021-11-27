@@ -75,7 +75,7 @@ Route::get('/vacacionesAgendadas', [ VacacionesAgendadasController::class, 'inde
 
 //Ruta para obtener el porcentaje de empleados de vacaciones
 Route::resource('porcentajeEmpleado', PorcentajeEmpleadoController::class);
-Route::get('/porcentajeEmpleado', [ PorcentajeEmpleadoController::class, 'index']);
+//Route::get('/porcentajeEmpleado', [ PorcentajeEmpleadoController::class, 'index']);
 
 //Ruta para el generar excel
 Route::get('formato', [ExportController::class, 'index'])->middleware('can:formato');

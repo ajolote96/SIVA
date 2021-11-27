@@ -11,32 +11,41 @@
 @endsection
 
 @section('title', 'SIPSUTERMCFE')
-<div>
-    <h1 class="text-center">Personal Disponible</h1><br/>
-    <select class="custom-select" id="inputGroupSelect01">
-        <option value="">REVOLUCION</option>
-        <option value="">CAMICHINES</option>
-        <option value="">SANTA FE</option>
-        <option value="">TLAQUEPAQUE</option>
-        <option value="">PARADERO</option>
-        <option value="">TONALA</option>
-    </select>
-</div>
-<br/>
-<table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+<form action = "{{url('/porcentajeEmpleado/')}}" method="get">
+    <div>
+        <h1 class="text-center">Personal Disponible</h1><br/>
+        <select name="porcentajeEmpleadoS" id="porcentajeEmpleadoS" class="form-control">
+            @foreach ($porcentajes as $porcentaje)
+            <option value="{{isset($porcentaje->Nombre)?$porcentaje->Nombre:''}}">{{isset($porcentaje->Nombre)?$porcentaje->Nombre:''}}</option>
+            @endforeach
+        </select>
+    </div>
+    <br/>
+       <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
+        <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
+        <th class="text-center">ID</th>
+        <th class="text-center">Nombre</th>
+        <th class="text-center">Cantidad de empleados</th>
+        <th class="text-center">Posiciones disponibles</th>
+        <th class="text-center">Posiciones ocupadas</th>
+        </tr>
+        <tbody>
+            @php
+                $nombre = "zonas.id_zona";
+            @endphp
+        @foreach ($zona as $zona)
+        <tr>
+            <td>{{$zona->id_zona}}</td>
+            <td>{{$zona->Nombre}}</td>
+            <td>@php echo $cantidadEmpleados; @endphp</td>
+            <td>@php echo $consultaPosiciones; @endphp</td>
+            <td>@php echo $consultaOcupados; @endphp</td>
+        </tr>
+        @endforeach
+            </table> 
+            
+            <input type="submit" class="btn btn-success" action = "{{url('/porcentajeEmpleado/'.'porcentajeEmpleado')}}"></button>
+</form>
 
-    <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
-    <th class="text-center">ID</th>
-    <th class="text-center">Nombre</th>
-    <th class="text-center">Empleados</th>
-    <th class="text-center">Disponible</th>
-    </tr>
-    <tbody>
-        <td>DX170</td>
-        <td>REVOLUCION</td>
-        <td>200</td>
-        <td>30</td>
-    </tbody>
-        </table>
-        <button  type="button" class="btn btn-success">Consultar</button>
+<br><br>
 @endsection

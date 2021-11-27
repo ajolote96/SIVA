@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\PorcentajeEmpleado;
 use App\Http\Controllers\Controller;
+use App\Models\Zona;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class PorcentajeEmpleadoController extends Controller
 {
     /**
@@ -16,21 +17,32 @@ class PorcentajeEmpleadoController extends Controller
     public function index(Request $request)
     {
         //
-        /*
-       $nombreBuscar = 'Sacoalco';
-       $nombre = $request->get('porcentajeEmpleado');
-       //$porcentajes2[$nombreBuscar] = PorcentajeEmpleado::query()->nombreDepartamento($nombreBuscar);
-        //$totalEmpleado = PorcentajeEmpleado::query()->join('lugar__de__trabajos','zonas.id','=','lugar__de__trabajos.Id_zona_F')
-        //->join('cat__lugar__de__trabajo__empleados','lugar__de__trabajos.id','=','cat__lugar__de__trabajo__empleados.Id_lugar_de_trabajo_F')->where('zonas.Nombre','LIKE','$nombreBuscar')->count();
-        
-        //$total = (15*$totalEmpleado)/100;
-
-        //dd($totalEmpleado);
-        $porcentajes= PorcentajeEmpleado::all();
-        $porcentajes = PorcentajeEmpleado::query()->where('Nombre','LIKE','%Sacoalco%');       
-        return view('porcentajeEmpleado.index',compact('porcentajes','porcentajes2'));
-        */
-        return view('porcentajeEmpleado.index');
+        $cual = "zonas.id_zona";
+        $datosempleado = request()->except('_token');
+       // $valor = $request->get("buscar");
+        $valor = $request->get("porcentajeEmpleadoS");
+        if($valor===null){ 
+            $valor = "CHAPALA";
+        }
+        $porcentajes = PorcentajeEmpleado::all();
+        $zona = PorcentajeEmpleado::where("zonas.Nombre","LIKE","%$valor%")->select()->get();
+        $lugar_trabajo = DB::table('lugar_de_trabajos')->join('zonas','zonas.id_zona','=','lugar_de_trabajos.Id_zona_F')->get();
+        $empleado = DB::table('empleados')->join('lugar_de_trabajos','lugar_de_trabajos.id','=','empleados.IdLugarDeTrabajo')->get();
+        $solicitud = DB::table('solicitudes')->join('empleados','empleados.RPE','=','solicitudes.RPE')->select()->get();
+       
+        $consultaPosiciones = PorcentajeEmpleado::join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
+       ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')->where("zonas.Nombre","LIKE","%$valor%")->count('empleados.RPE');
+       
+       $consultaOcupados = PorcentajeEmpleado::join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
+       ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')
+       ->join('solicitudes','solicitudes.RPE','=','empleados.RPE')
+       ->where('solicitudes.autoriza_email','!=','NULL')
+       ->where("zonas.Nombre","LIKE","%$valor%")
+       ->count('empleados.RPE');
+       $cantidadEmpleados = $consultaPosiciones;
+        $consultaPosiciones = (15/100)*$consultaPosiciones;
+        $consultaPosiciones = round($consultaPosiciones);
+        return view('porcentajeEmpleado.index',compact('porcentajes','zona','consultaPosiciones','cantidadEmpleados','consultaOcupados'));
     }
 
     /**
