@@ -12,9 +12,9 @@ function parseDate(value) {
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
 }
 
-function myFunction(){
+function myFunction(diasHabiles){
 
-
+    alert(diasHabiles);
    /* let fechaInicio = document.getElementById("FechaInicio").value;
     let fechaFinal = document.getElementById("FechaFin").value;
 
@@ -60,8 +60,9 @@ return result-contador;*/
     if (endDay == 6 && startDay != 0)
         days = days - 1
 
-
     console.log(days);
+    var restante = days - diasHabiles;
+
     return days;
 
 

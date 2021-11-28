@@ -33,66 +33,103 @@
 
 
 
-
-{{--
-    @foreach ($solicitud as $solicitud) --}}
-
-{{--
-      <table>
-      <tr>
-        {{-- <td>{{ $solicitud->id }}</td> --}}
-      {{-- <td>{{ $solicitud->Nombre }}</td>
-      <td>{{ $solicitud->ApellidoPaterno }}</td> --}}
-      {{-- <td>{{ \Carbon\Carbon::parse($solicitud->FechaInicio)->format('d/m/Y')}} </td>
-      <td>{{ \Carbon\Carbon::parse($solicitud->FechaFin)->format('d/m/Y')}} </td> --}}
-      {{-- </tr>
-    </table> --}}
-
-    {{-- @endforeach
- --}}
-
-
 <?php
 
 
-use Carbon\Carbon;$dbDate = \Carbon\Carbon::parse($solicitud->FechaIngreso);
+use Carbon\Carbon;
+$dbDate = \Carbon\Carbon::parse($solicitud->FechaIngreso);
 $diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
 
 
 $dbDateRPE = $solicitud->RPE;
 
 
- $diasHabiles = 0;
-
+$car = Session::get('pendientes');
+if($car == ''){
+    $diasHabiles = 0;
 
 if($diffYears == 0){
     echo "No tienes dias disponibles";
 }
 elseif ($diffYears == 1) {
     $diasHabiles = 12;
+    session(['pendientes' => $diasHabiles]);
 }
 elseif ($diffYears == 2) {
     $diasHabiles = 17;
+    session(['pendientes' => $diasHabiles]);
 }
 elseif ($diffYears >= 3 AND $diffYears <= 5) {
     $diasHabiles = 20;
+    session(['pendientes' => $diasHabiles]);
     //echo "5 días habiles";
     //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 6 && $diffYears <= 9) {
-    $diasHabiles = 20;          //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+    $diasHabiles = 20;       
+    session(['pendientes' => $diasHabiles]);   //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 10 && $diffYears <= 20) {
-    $diasHabiles = 24;          //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+    $diasHabiles = 24;          
+    session(['pendientes' => $diasHabiles]);
+    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 21 && $diffYears <= 24) {
-    $diasHabiles = 24;          //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+    $diasHabiles = 24;    
+    session(['pendientes' => $diasHabiles]);      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 25) {
-    $diasHabiles = 24;          //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+    $diasHabiles = 24;        
+    session(['pendientes' => $diasHabiles]);
+      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }else{
     echo "Error";
 }
+}
+else{
+if($diffYears == 0){
+    echo "No tienes dias disponibles";
+}
+elseif ($diffYears == 1) {
+    $diasHabiles = 12 - $car;
+}
+elseif ($diffYears == 2) {
+    $diasHabiles = 17 - $car;
+    session(['pendientes' => $diasHabiles]);
+}
+elseif ($diffYears >= 3 AND $diffYears <= 5) {
+    $diasHabiles = 20 - $car;
+    session(['pendientes' => $diasHabiles]);
+    //echo "5 días habiles";
+    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 6 && $diffYears <= 9) {
+    $diasHabiles = 20 - $car;
+    session(['pendientes' => $diasHabiles]);   //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 10 && $diffYears <= 20) {
+    $diasHabiles = 24 - $car;    
+    session(['pendientes' => $diasHabiles]);
+    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 21 && $diffYears <= 24) {
+    $diasHabiles = 24 - $car;  
+    session(['pendientes' => $diasHabiles]);      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 25) {
+    $diasHabiles = 24 - $car;        
+    session(['pendientes' => $diasHabiles]);
+      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}else{
+    echo "Error";
+}
+}
+
+// if($diasHabiles <= 0){
+//     Session::forget('pendientes');
+// }
+
+ 
 
 $agendarTiempoFin = \Carbon\Carbon::now()->format('d-m-Y');
 $ano = \Carbon\Carbon::now()->format('Y');
@@ -176,8 +213,9 @@ for($a=0; $a<=15; $a++){
                                         <input type="date" class="form-control" name="FechaInicio" id="FechaInicio" onchange="var diasPas = diasPasados();"> 
                                     </td>
                                     <td>
-                                        <input type="date" class="form-control" name="FechaFin" id="FechaFin" class="FechaFin" value=""  Onchange="var diasDif = myFunction(); console.log(diasDif);
-                                        if(diasDif <= {{$diasHabiles}}){alert('!Los días que elegiste están disponibles!')}else{alert('No puedes elegir más días de los correspondientes')}"> 
+                                        <input type="date" class="form-control" name="FechaFin" id="FechaFin" class="FechaFin" value=""  Onchange="var diasDif = myFunction({{$diasHabiles}}); console.log(diasDif);
+                                        if(diasDif <= {{$diasHabiles}}){alert('!Los días que elegiste están disponibles!'); 
+                                    }else{alert('No puedes elegir más días de los correspondientes')}"> 
                                     </td>
                                     <td>
                                         <textarea name="Descripcion" placeholder="Description" class="form-control" id="Descripcion"></textarea>
@@ -187,7 +225,8 @@ for($a=0; $a<=15; $a++){
                         </table>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-sm btn-success" onclick="emailJs1();">Guardar</button>
+                <!--Poner en onChange funcion emailJs para los correos-->
+                <button type="submit" class="btn btn-sm btn-success">Guardar</button>
             </div>
         </div>
     </div>
