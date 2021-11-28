@@ -15,6 +15,7 @@
     <div>
         <h1 class="text-center">Personal Disponible</h1><br/>
         <select name="porcentajeEmpleadoS" id="porcentajeEmpleadoS" class="form-control">
+            <option>Selecciona la zona</option>
             @foreach ($porcentajes as $porcentaje)
             <option value="{{isset($porcentaje->Nombre)?$porcentaje->Nombre:''}}">{{isset($porcentaje->Nombre)?$porcentaje->Nombre:''}}</option>
             @endforeach
@@ -39,7 +40,7 @@
             <td>{{$zona->Nombre}}</td>
             <td>@php echo $cantidadEmpleados; @endphp</td>
             <td>@php echo $consultaPosiciones; @endphp</td>
-            <td>@php echo $consultaOcupados; @endphp</td>
+            <td>@php echo $consultaOcupados2; @endphp</td>
         </tr>
         @endforeach
             </table> 

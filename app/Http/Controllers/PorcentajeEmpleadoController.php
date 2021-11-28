@@ -39,10 +39,18 @@ class PorcentajeEmpleadoController extends Controller
        ->where('solicitudes.autoriza_email','!=','NULL')
        ->where("zonas.Nombre","LIKE","%$valor%")
        ->count('empleados.RPE');
+       
+       $consultaOcupados2 = DB::table('usuario_agendado')
+       ->join('empleados','empleados.RPE','=','usuario_agendado.RPE')
+       ->join('lugar_de_trabajos','lugar_de_trabajos.id','=','empleados.IdLugarDeTrabajo')
+       ->join('zonas','zonas.id_zona','=','lugar_de_trabajos.Id_zona_F')
+       ->where("zonas.Nombre","LIKE","%$valor%")
+       ->count();
+
        $cantidadEmpleados = $consultaPosiciones;
         $consultaPosiciones = (15/100)*$consultaPosiciones;
         $consultaPosiciones = round($consultaPosiciones);
-        return view('porcentajeEmpleado.index',compact('porcentajes','zona','consultaPosiciones','cantidadEmpleados','consultaOcupados'));
+        return view('porcentajeEmpleado.index',compact('porcentajes','zona','consultaPosiciones','cantidadEmpleados','consultaOcupados','consultaOcupados2'));
     }
 
     /**
