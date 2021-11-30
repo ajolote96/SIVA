@@ -29,7 +29,9 @@ class VacacionesController extends Controller
         $user = Auth::user();
         
 
-
+        $solicitud = Empleado::query()->where('CorreoElectronico','=',$user->email)
+        // ->select('*')->where('RPE','=','TF567')
+        ->first();
       
 
         //$validaciones = Vacaciones::all();
