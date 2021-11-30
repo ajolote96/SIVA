@@ -40,90 +40,79 @@ use Carbon\Carbon;
 $dbDate = \Carbon\Carbon::parse($solicitud->FechaIngreso);
 $diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
 
-
+$diferencia_dias = 0;
 $dbDateRPE = $solicitud->RPE;
 
+$content = DB::table("solicitudes")
+            ->select("solicitudes.FechaInicio", "solicitudes.FechaFin")
+            ->where("solicitudes.RPE", "=", $solicitud->RPE)
+            ->get();
 
-$car = Session::get('pendientes');
-if($car == ''){
+foreach ($content as $key) {
+
+    $fecha_inicial = \Carbon\Carbon::parse($key->FechaInicio);
+    $fecha_final = \Carbon\Carbon::parse($key->FechaFin);
+    $diferencia_dias += $fecha_inicial->diffInDays($fecha_final)-1;
+}
+
+
     $diasHabiles = 0;
+if($diffYears == 0){
+    echo "No tienes dias disponibles";
+}
+elseif ($diffYears == 1) {
+    $diasHabiles = 12 - $diferencia_dias;
+   if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }
+}
+elseif ($diffYears == 2) {
+    $diasHabiles = 17 - $diferencia_dias;
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }
+   
+}
+elseif ($diffYears >= 3 AND $diffYears <= 5) {
+    $diasHabiles = 20 - $diferencia_dias;
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }
+    //echo "5 días habiles";
+    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 6 && $diffYears <= 9) {
+    $diasHabiles = 20 - $diferencia_dias;
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }    
+  //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 10 && $diffYears <= 20) {
+    $diasHabiles = 24 - $diferencia_dias;
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }      
+    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 21 && $diffYears <= 24) {
+    $diasHabiles = 24 - $diferencia_dias;  
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }
+     //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}
+elseif ($diffYears >= 25) {
+    $diasHabiles = 24 - $diferencia_dias;
+    if($diasHabiles <= 0){
+       $diasHabiles = 0;
+   }        
+      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
+}else{
+    echo "Error";
+}   
 
-if($diffYears == 0){
-    echo "No tienes dias disponibles";
-}
-elseif ($diffYears == 1) {
-    $diasHabiles = 12;
-    session(['pendientes' => $diasHabiles]);
-}
-elseif ($diffYears == 2) {
-    $diasHabiles = 17;
-    session(['pendientes' => $diasHabiles]);
-}
-elseif ($diffYears >= 3 AND $diffYears <= 5) {
-    $diasHabiles = 20;
-    session(['pendientes' => $diasHabiles]);
-    //echo "5 días habiles";
-    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 6 && $diffYears <= 9) {
-    $diasHabiles = 20;       
-    session(['pendientes' => $diasHabiles]);   //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 10 && $diffYears <= 20) {
-    $diasHabiles = 24;          
-    session(['pendientes' => $diasHabiles]);
-    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 21 && $diffYears <= 24) {
-    $diasHabiles = 24;    
-    session(['pendientes' => $diasHabiles]);      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 25) {
-    $diasHabiles = 24;        
-    session(['pendientes' => $diasHabiles]);
-      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}else{
-    echo "Error";
-}
-}
-else{
-if($diffYears == 0){
-    echo "No tienes dias disponibles";
-}
-elseif ($diffYears == 1) {
-    $diasHabiles = 12 - $car;
-}
-elseif ($diffYears == 2) {
-    $diasHabiles = 17 - $car;
-    session(['pendientes' => $diasHabiles]);
-}
-elseif ($diffYears >= 3 AND $diffYears <= 5) {
-    $diasHabiles = 20 - $car;
-    session(['pendientes' => $diasHabiles]);
-    //echo "5 días habiles";
-    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 6 && $diffYears <= 9) {
-    $diasHabiles = 20 - $car;
-    session(['pendientes' => $diasHabiles]);   //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 10 && $diffYears <= 20) {
-    $diasHabiles = 24 - $car;    
-    session(['pendientes' => $diasHabiles]);
-    //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 21 && $diffYears <= 24) {
-    $diasHabiles = 24 - $car;  
-    session(['pendientes' => $diasHabiles]);      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}
-elseif ($diffYears >= 25) {
-    $diasHabiles = 24 - $car;        
-    session(['pendientes' => $diasHabiles]);
-      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
-}else{
-    echo "Error";
-}
-}
+
 
 // if($diasHabiles <= 0){
 //     Session::forget('pendientes');

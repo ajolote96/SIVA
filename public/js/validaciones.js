@@ -14,7 +14,7 @@ function parseDate(value) {
 
 function myFunction(diasHabiles){
 
-    alert(diasHabiles);
+    //alert(diasHabiles);
    /* let fechaInicio = document.getElementById("FechaInicio").value;
     let fechaFinal = document.getElementById("FechaFin").value;
 
