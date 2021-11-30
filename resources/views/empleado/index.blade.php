@@ -130,7 +130,7 @@
         <tr>
         <th>RPE</th>
             <th>Domicilio</th>
-            <th>Telefono de Casa</th>
+            <th>Telefono de casa</th>
             <th>Telefono celular</th>
             <th>Fecha de nacimiento</th>
             <th>Correo electrónico</th>
