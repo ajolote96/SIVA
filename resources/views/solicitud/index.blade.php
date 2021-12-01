@@ -40,7 +40,8 @@ use Carbon\Carbon;
 $dbDate = \Carbon\Carbon::parse($solicitud->FechaIngreso);
 $diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
 
-$diferencia_dias = 0;
+//$diferencia_dias = 0;
+$days = 0;
 $dbDateRPE = $solicitud->RPE;
 
 $content = DB::table("solicitudes")
@@ -52,8 +53,44 @@ foreach ($content as $key) {
 
     $fecha_inicial = \Carbon\Carbon::parse($key->FechaInicio);
     $fecha_final = \Carbon\Carbon::parse($key->FechaFin);
-    $diferencia_dias += $fecha_inicial->diffInDays($fecha_final)-1;
+
+
+    $start = new DateTime($fecha_inicial);
+            $end = new DateTime($fecha_final);
+
+            //de lo contrario, se excluye la fecha de finalización (¿error?)
+            $end->modify('+1 day');
+    
+            $interval = $end->diff($start);
+    
+            // total dias
+            $days = $days + $interval->days;
+    
+            // crea un período de fecha iterable (P1D equivale a 1 día)
+            $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+    
+            // almacenado como matriz, por lo que puede agregar más de una fecha feriada
+            //FECHAS FERIADAS, AGREGAR MÁS SI ES NECESARIO
+            $holidays = array('2012-09-07');
+    
+            foreach($period as $dt) {
+                $curr = $dt->format('D');
+
+                // obtiene si es Sábado o Domingo
+                if($curr == 'Sat' || $curr == 'Sun') {
+                    $days--;
+                }elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+                    $days--;
+                }
+            }
+
+
+    //$diferencia_dias += $fecha_inicial->diffInDays($fecha_final)-1;
 }
+
+    if($days == 0){
+        $diasHabiles = 0;
+    }
 
 
     $diasHabiles = 0;
@@ -61,20 +98,20 @@ if($diffYears == 0){
     echo "No tienes dias disponibles";
 }
 elseif ($diffYears == 1) {
-    $diasHabiles = 12 - $diferencia_dias;
+    $diasHabiles = 12 - $days;
    if($diasHabiles <= 0){
        $diasHabiles = 0;
    }
 }
 elseif ($diffYears == 2) {
-    $diasHabiles = 17 - $diferencia_dias;
+    $diasHabiles = 17 - $days;
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }
    
 }
 elseif ($diffYears >= 3 AND $diffYears <= 5) {
-    $diasHabiles = 20 - $diferencia_dias;
+    $diasHabiles = 20 - $days;
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }
@@ -82,28 +119,28 @@ elseif ($diffYears >= 3 AND $diffYears <= 5) {
     //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 6 && $diffYears <= 9) {
-    $diasHabiles = 20 - $diferencia_dias;
+    $diasHabiles = 20 - $days;
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }    
   //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 10 && $diffYears <= 20) {
-    $diasHabiles = 24 - $diferencia_dias;
+    $diasHabiles = 24 - $days;
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }      
     //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 21 && $diffYears <= 24) {
-    $diasHabiles = 24 - $diferencia_dias;  
+    $diasHabiles = 24 - $days;  
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }
      //Se hace de 3 a 5 y no comtemplando 6 a 9 por si se necesita calcular el pago adicional
 }
 elseif ($diffYears >= 25) {
-    $diasHabiles = 24 - $diferencia_dias;
+    $diasHabiles = 24 - $days;
     if($diasHabiles <= 0){
        $diasHabiles = 0;
    }        
@@ -111,7 +148,7 @@ elseif ($diffYears >= 25) {
 }else{
     echo "Error";
 }   
-
+ 
 
 
 // if($diasHabiles <= 0){
@@ -138,7 +175,7 @@ for($a=0; $a<=15; $a++){
 </div>
 
 <br>
-    <p>Recuerda que cuentas con <strong>4 periodos</strong> como maximo para agendar tus <strong><?php echo $diasHabiles ?> dias </strong>disponibles.</p>
+    <p id="pDias">Recuerda que cuentas con <strong>4 periodos</strong> como maximo para agendar tus <strong><?php echo $diasHabiles ?> dias </strong>disponibles.</p>
 
 
 
@@ -152,11 +189,11 @@ for($a=0; $a<=15; $a++){
         </div>
     @endif
 
-    <h2>Registro de Vacaciones</h2>
+    <h2 id="registroh2">Registro de Vacaciones</h2>
     <br>
 
 
-<form action="{{route('solicitud.store')}}" method="post">
+<form action="{{route('solicitud.store')}}" method="post" id="formularioX">
     @csrf
     <div class="card">
         <div class="card-body">
@@ -215,12 +252,23 @@ for($a=0; $a<=15; $a++){
                     </div>
                 </div>
                 <!--Poner en onChange funcion emailJs para los correos-->
-                <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+                <button type="submit" class="btn btn-sm btn-success" id="save">Guardar</button>
             </div>
         </div>
     </div>
 
 </form>
+
+<?php
+
+if($diasHabiles == 0){
+    echo '<script type="text/javascript">',
+     'esconderBoton();',
+     '</script>';
+}
+
+?>
+
 
 
 

@@ -37,9 +37,9 @@ class Empleado extends Model
 
     protected $fillable=['Nombre','ApellidoPaterno','ApellidoMaterno','Contrato','RPE','IMMS','FechaIngreso','RFC','TipoSangre','Alergias','Padecimientos','Domicilio','TelefonoCasa','TelefonoCelular','FechaNacimiento','CorreoElectronico','Sexo','EstadoCivil','ContactoEmergencia','TelefonoEmergencia','CusosParticipaba'];
 
-    protected $dates = [
-        'TelefonoCasa',
-        'telefonoCelular',
-        // your other new column
-    ];
+    // protected $dates = [
+    //     'TelefonoCasa',
+    //     'TelefonoCelular',
+    //     // your other new column
+    // ];
 }

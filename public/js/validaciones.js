@@ -68,6 +68,14 @@ return result-contador;*/
 
 }
 
+
+function esconderBoton(){
+    document.getElementById('formularioX').style.display="none";
+    document.getElementById('registroh2').style.display="none";
+    document.getElementById('pDias').style.display="none";
+ }
+
+
 function diasPasados(){
     let fechaInicio = document.getElementById("FechaInicio").value;
     let fechaDate2 = new Date(fechaInicio);
@@ -94,7 +102,7 @@ function emailJs1(){
             descripcion: document.getElementById("Descripcion").value,
         FechaInicio: document.getElementById("FechaInicio").value,
         FechaFin: document.getElementById("FechaFin").value,
-        to_email: 'cristobalalejandrobtds@gmail.com'
+        //to_email: 'cristobalalejandrobtds@gmail.com'
     };
 
         emailjs.send('gmail', 'template_w6i21tp', templateParams)
