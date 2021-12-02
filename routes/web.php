@@ -45,11 +45,13 @@ Route::get('/', function () {
 //Rutas para la eleaboracion de periodos
 Route::get('/periodo', [PeriodoController::class, 'index']);
 Route::post('/periodo', [PeriodoController::class, 'store'])->name('periodo.store');
+Route::resource('solicitud', PeriodoController::class)->middleware('can:diaferiado');
 
 
 //Rutas para las solicitudes
 Route::get('/solicitud', [SolicitudController::class, 'index']);
 Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
+
 
 //Ruta para los dias feriados
 Route::get('diaferiado', [DiaFeriadoController::class, 'index'])->middleware('can:diaferiado')->name('diaferiado.index');

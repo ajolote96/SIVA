@@ -75,6 +75,70 @@
 </form>
 
 
+<br><br>
+<!--Tabla de periodosS -->
+<p><strong>Estos son los periodos que tienes activos</strong></p>
+
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                        <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
+                            <tr >
+                                <th class="text-center">
+                                    Id
+                                </th>
+                                <th class="text-center">
+                                    Nombre
+                                </th>
+                                <th class="text-center">
+                                    Inicio
+                                </th>
+                                <th class="text-center">
+                                    Fin
+                                </th>
+                                <th class="text-center">
+                                    Accion
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($periodos as $periodo)
+                                
+                            <tr>
+                                <td>
+                                    {{$periodo->id}}
+                                </td>
+                                <td>
+                                    {{$periodo->Nombre}}
+                                </td>
+                                <td>
+                                    {{$periodo->FechaInicio}}
+                                </td>
+                                <td>
+                                    {{$periodo->FechaFin}}
+                                </td>
+                                <td>
+                                    <form action="{{route('diaferiado.destroy', $periodo->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-danger row justify-content-between">Eliminar</button>
+                                    </form>
+                                    <a href="{{ route('diaferiado.edit', $periodo->id)}}" class="btn btn-sm btn-primary row justify-content-between">Editar</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
 
 
 

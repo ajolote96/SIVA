@@ -15,7 +15,8 @@ class PeriodoController extends Controller
      */
     public function index()
     {
-        return view('periodo.index');
+        $periodos = Periodo::all();
+        return view('periodo.index', compact('periodos'));
     }
 
     /**
@@ -65,7 +66,9 @@ class PeriodoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $periodos = Periodo::find($id);
+
+        return view('periodo.edit', compact('periodos'));
     }
 
     /**
@@ -77,7 +80,12 @@ class PeriodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $periodos = Periodo::find($id);
+        $periodos->update($request->all());
+
+
+
+        return redirect()->route('periodo.index');
     }
 
     /**
@@ -88,6 +96,10 @@ class PeriodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $periodos = Periodo::find($id);
+
+        $periodos->delete();
+
+        return back();
     }
 }
