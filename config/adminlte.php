@@ -256,7 +256,7 @@ return [
                     'can' => 'vacaciones',
                 ],
                 [
-                    'text' => 'Consultar vacaciones autorizas/rechazadas',
+                    'text' => 'Consultar vacaciones autorizadas / rechazadas',
                     'url' => 'show',
                     'can' => 'vacaciones',
                 ],
