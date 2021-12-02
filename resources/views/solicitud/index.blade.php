@@ -44,48 +44,93 @@ $diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
 $days = 0;
 $dbDateRPE = $solicitud->RPE;
 
+$periodos = DB::table('periodos')
+            ->select('periodos.FechaInicio', 'periodos.FechaFin')
+            ->get();
+
+foreach ($periodos as $key) {
+            $ini = $key->FechaInicio;
+            $fin = $key->FechaFin;
+            $hoy = date("Y-m-d");
+
+
+            $array = array($ini, $fin, $hoy);
+
+            //dd($array);
+
+            //dd($periodo);
+            
+                if ($ini <= $hoy && $fin >= $hoy) {
+                    echo '<script type="text/javascript">',
+                            'esconderBoton();',
+                            '</script>';
+                }
+
+            
+
+}
+
+
+$feriado = DB::table('dia_feriados')
+            ->select("dia_feriados.Fecha")
+            ->get();
+        
+
 $content = DB::table("solicitudes")
             ->select("solicitudes.FechaInicio", "solicitudes.FechaFin")
             ->where("solicitudes.RPE", "=", $solicitud->RPE)
             ->get();
 
-foreach ($content as $key) {
 
-    $fecha_inicial = \Carbon\Carbon::parse($key->FechaInicio);
-    $fecha_final = \Carbon\Carbon::parse($key->FechaFin);
+        //echo($feri);
+    foreach ($content as $key) {
 
+        $fecha_inicial = \Carbon\Carbon::parse($key->FechaInicio);
+        $fecha_final = \Carbon\Carbon::parse($key->FechaFin);
+        
+        foreach ($feriado as $key) {          
 
-    $start = new DateTime($fecha_inicial);
-            $end = new DateTime($fecha_final);
+            $feri = ($key->Fecha);
+        }
 
-            //de lo contrario, se excluye la fecha de finalización (¿error?)
-            $end->modify('+1 day');
-    
-            $interval = $end->diff($start);
-    
-            // total dias
-            $days = $days + $interval->days;
-    
-            // crea un período de fecha iterable (P1D equivale a 1 día)
-            $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-    
-            // almacenado como matriz, por lo que puede agregar más de una fecha feriada
-            //FECHAS FERIADAS, AGREGAR MÁS SI ES NECESARIO
-            $holidays = array('2012-09-07');
-    
-            foreach($period as $dt) {
-                $curr = $dt->format('D');
+        $f = new DateTime($feri);
+        //dd($f);
 
-                // obtiene si es Sábado o Domingo
-                if($curr == 'Sat' || $curr == 'Sun') {
-                    $days--;
-                }elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-                    $days--;
+                $start = new DateTime($fecha_inicial);
+                $end = new DateTime($fecha_final);
+
+                //de lo contrario, se excluye la fecha de finalización (¿error?)
+                $end->modify('+1 day');
+        
+                $interval = $end->diff($start);
+        
+                // total dias
+                $days = $days + $interval->days;
+        
+                // crea un período de fecha iterable (P1D equivale a 1 día)
+                $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        
+                // almacenado como matriz, por lo que puede agregar más de una fecha feriada
+                //FECHAS FERIADAS, AGREGAR MÁS SI ES NECESARIO
+                
+                    $holidays = array($feri);
+                    //dd($holidays);
+
+        
+                foreach($period as $dt) {
+                    $curr = $dt->format('D');
+
+                    // obtiene si es Sábado o Domingo
+                    if($curr == 'Sat' || $curr == 'Sun') {
+                        $days--;
+                    }elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+                        $days--;
+                    }
                 }
-            }
 
 
-    //$diferencia_dias += $fecha_inicial->diffInDays($fecha_final)-1;
+        //$diferencia_dias += $fecha_inicial->diffInDays($fecha_final)-1;
+    
 }
 
     if($days == 0){
@@ -266,6 +311,7 @@ if($diasHabiles == 0){
      'esconderBoton();',
      '</script>';
 }
+
 
 ?>
 

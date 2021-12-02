@@ -44,6 +44,7 @@ Route::get('/', function () {
 
 //Rutas para la eleaboracion de periodos
 Route::get('/periodo', [PeriodoController::class, 'index']);
+Route::post('/periodo', [PeriodoController::class, 'store'])->name('periodo.store');
 
 
 //Rutas para las solicitudes

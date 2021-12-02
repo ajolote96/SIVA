@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periodo;
 use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
@@ -35,7 +36,14 @@ class PeriodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $feriado = new Periodo();
+        $feriado->Nombre = $request->input('nombre');
+        $feriado->FechaInicio = $request->input('inicio');
+        $feriado->FechaFin = $request->input('fin');
+
+        $feriado->save();
+
+        return back()->with('mensaje', 'El Periodo se almaceno correctamente');
     }
 
     /**

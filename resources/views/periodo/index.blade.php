@@ -11,13 +11,25 @@
 
 @endsection
 
+<?php
 
+
+?>
 
 @section('title', 'SIPSUTERMCFE')
 <h1>Administracion de Peridos Vacacionales</h1><br/>
 <p><strong>Ingresa el periodo que deseas activar para el registro de vacaciones</strong></p>
 
-<form action="" method="post">
+@if (session('mensaje'))
+<div class="alert alert-success" role="alert">
+    <strong>Aviso</strong> {{session('mensaje')}}
+    <button type="button" class="close" data-dismiss="alert" alert-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+<form action="{{route('periodo.store')}}" method="post">
     @csrf
     <div class="card">
         <div class="card-body">
@@ -27,6 +39,9 @@
                         <table class="table table-bordered table-hover table-sortable" id="tab_logic">
                             <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
                                 <tr >
+                                    <th class="text-center">
+                                        Nombre
+                                    </th>
                                     <th class="text-center">
                                         Inicio
                                     </th>
@@ -38,6 +53,9 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>
+                                        <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                                    </td>
                                     <td>
                                         <input type="date" name="inicio" id="inicio">
                                     </td>
