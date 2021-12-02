@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 @stop
 
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"/>
+<link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
+<link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
+
+@endsection
 <script src="{{ URL::asset('css/estilos.css') }}"></script>
 
 @section('content')
@@ -31,7 +40,7 @@
 <a href="{{ url('empleado/create') }}" class="btn btn-success">Registrar nuevo empleado</a><br><br>
 
 <h1>Datos de la empresa </h1>
-<table class="table table-light">
+<table class="table table-light" id="empleados">
     <thead class="thead-light">
         <tr>
              <th>RPE</th>
@@ -75,7 +84,7 @@
 </table>
 
 <h1>Datos personales </h1>
-<table class="table table-light">
+<table class="table table-light" id="empleados2">
     <thead class="thead-light">
         <tr>
         <th>RPE</th>
@@ -125,7 +134,7 @@
 </table>
 
 <h1> Medios de contacto y ubicación </h1>
-<table class="table table-light">
+<table class="table table-light" id="empleados3">
     <thead class="thead-light">
         <tr>
         <th>RPE</th>
@@ -168,3 +177,15 @@
 </div>
 @endsection
 
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="<?php echo asset('js/validaciones.js') ?>"></script>
+    <script type="text/javascript" src=<?php echo asset('https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js') ?>></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>    
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('#empleados').DataTable();
+        $('#empleados2').DataTable();
+        $('#empleados3').DataTable();
+    </script>
+@endsection
