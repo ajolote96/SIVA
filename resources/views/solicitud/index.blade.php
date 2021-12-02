@@ -60,7 +60,7 @@ foreach ($periodos as $key) {
 
             //dd($periodo);
             
-                if ($ini <= $hoy && $fin >= $hoy) {
+                if ($ini >= $hoy && $fin <= $hoy) {
                     echo '<script type="text/javascript">',
                             'esconderBoton();',
                             '</script>';
