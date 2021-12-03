@@ -26,6 +26,7 @@ class CreateSolicitudesTable extends Migration
             $table->enum('rechaza_sec',['0','1'])->nullable();
             $table->enum('rechaza_jefe',['0','1'])->nullable();
             $table->string('rechaza_email')->nullable();
+            $table->enum('periodo',['actual','posterior'])->nullable();
 
             $table->timestamps();
         });

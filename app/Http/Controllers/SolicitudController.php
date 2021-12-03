@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Empleado;
 use App\Models\Solicitud;
+use App\Http\Controllers\Str;
 
 
 
@@ -100,17 +101,40 @@ class SolicitudController extends Controller
         $porcentaje = (25*$totalEmpleado)/100;
         return dd($solicitudVacaciones);
         */
-         $solicitud = new Solicitud();
-         $solicitud->RPE = $request->input("RPE");
-         $solicitud->Nombre = $request->input('Nombre');
-         $solicitud->Descripcion = $request->input('Descripcion');
-         $solicitud->FechaInicio = $request->input('FechaInicio');
-         $solicitud->FechaFin = $request->input('FechaFin');
-        //$solicitud->autoriza_sec = $request->input('AutorizaSec');
-        //$solicitud->autoriza_jefe = $request->input('AutorizaJefe');
+        $comparativa = $request->input("FechaInicio");
+        if($comparativa != ''){  
+            $solicitud = new Solicitud();
+            $solicitud->RPE = $request->input("RPE");
+            $solicitud->Nombre = $request->input('Nombre');
+            $solicitud->Descripcion = $request->input('Descripcion');
+            $solicitud->FechaInicio = $request->input('FechaInicio');
+            $solicitud->FechaFin = $request->input('FechaFin');
+            $solicitud->periodo = $request->input('periodo1');
+           //$solicitud->autoriza_sec = $request->input('AutorizaSec');
+           //$solicitud->autoriza_jefe = $request->input('AutorizaJefe');
+   
+            $solicitud->save();
+            return back()->with('mensaje', 'La solicitud se almaceno correctamente');
+        }else{
+            $solicitud2 = new Solicitud();
+            $solicitud2->RPE = $request->input("RPE2");
+            $solicitud2->Nombre = $request->input('Nombre2');
+            $solicitud2->Descripcion = $request->input('Descripcion2');
+            $solicitud2->FechaInicio = $request->input('FechaInicio2');
+            $solicitud2->FechaFin = $request->input('FechaFin2');
+            $solicitud2->periodo = $request->input('periodo2');
+           //$solicitud->autoriza_sec = $request->input('AutorizaSec');
+           //$solicitud->autoriza_jefe = $request->input('AutorizaJefe');
+    
+            $solicitud2->save();
+            return back()->with('mensaje2', 'La solicitud se almaceno correctamente');
+        }
 
-         $solicitud->save();
-         return back()->with('mensaje', 'La solicitud se almaceno correctamente');
+  
+
+
+
+        
          //return dd($solicitud);
 
         /* $solicitud2 = new Solicitud();
@@ -134,18 +158,19 @@ class SolicitudController extends Controller
 
         $diasDiferencia = $FechaFin->diffInDays($FechaInicio);*/
 
-
     }
 
-    /**
-     * Display the specified resource.
+  
+       /**
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+     * 
+     * */
+    public function show(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -163,12 +188,12 @@ class SolicitudController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+      
     }
 
     /**
