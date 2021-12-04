@@ -19,7 +19,7 @@ class Vacaciones extends Model
         'FechaFin'=>'required',
     ];
 
-    protected $fillable=['RPE','Nombre','Descripcion','FechaInicio','FechaFin','autoriza_sec','autoriza_jefe','autoriza_email'];
+    protected $fillable=['RPE','Nombre','Descripcion','FechaInicio','FechaFin','autoriza_sec','autoriza_jefe','autoriza_email','rechaza_sec','rechaza_jefe','rechaza_email','periodo'];
 
     protected $dates = [
         'FechaInicio',

@@ -126,10 +126,14 @@ return result-contador;*/
 
 
 function esconderBoton(){
+    document.getElementById('periodo22').hidden=false;
+    document.getElementById('formulario22').hidden=false;
     document.getElementById('peri').style.display="none";
     document.getElementById('formularioActual').style.display="none";
     document.getElementById('registroh2').style.display="none";
     document.getElementById('pDias').style.display="none";
+  
+
   
  }
 

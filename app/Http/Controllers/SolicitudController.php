@@ -112,6 +112,7 @@ class SolicitudController extends Controller
             $solicitud->periodo = $request->input('periodo1');
            //$solicitud->autoriza_sec = $request->input('AutorizaSec');
            //$solicitud->autoriza_jefe = $request->input('AutorizaJefe');
+           
    
             $solicitud->save();
             return back()->with('mensaje', 'La solicitud se almaceno correctamente');
@@ -124,7 +125,7 @@ class SolicitudController extends Controller
             $solicitud2->FechaFin = $request->input('FechaFin2');
             $solicitud2->periodo = $request->input('periodo2');
            //$solicitud->autoriza_sec = $request->input('AutorizaSec');
-           //$solicitud->autoriza_jefe = $request->input('AutorizaJefe');
+  
     
             $solicitud2->save();
             return back()->with('mensaje2', 'La solicitud se almaceno correctamente');

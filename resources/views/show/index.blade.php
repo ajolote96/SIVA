@@ -80,7 +80,6 @@
                    @endif
                @endforeach
 
-
            </tr>
        @endif
     @endforeach

@@ -408,7 +408,7 @@ for($a=0; $a<=15; $a++){
 
 
 
-<h2 id="periodo22">Periodo 2022-2023</h2>
+<h2 id="periodo22" hidden="hidden">Periodo 2022-2023</h2>
 
 <div class="container">
     @if (session('mensaje2'))
@@ -420,7 +420,7 @@ for($a=0; $a<=15; $a++){
         </div>
     @endif
 
-<form action="{{route('solicitud.store')}}" method="post" id="formulario22">
+<form action="{{route('solicitud.store')}}" method="post" id="formulario22" hidden="hidden">
     @csrf
     <div class="card">
         <div class="card-body">

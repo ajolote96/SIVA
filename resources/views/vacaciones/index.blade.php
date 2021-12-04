@@ -62,6 +62,7 @@
     <th class="text-center">
         Fecha Fin
     </th>
+    <th class="text-center">Calendario</th>
     <th class="text-center">Autorizar</th>
     <th class="text-center">Rechazar</th>
     </tr>
@@ -72,31 +73,47 @@
             @csrf
             @method('put')
         <tr>
+            <td id="RPE">{{$validacion->RPE}}</td>
             <input type="text" name="RPE" id="RPE" value="{{$validacion->RPE}}" hidden="true">
-        <td id="RPE">{{$validacion->RPE}}</td>
         <?php $content = DB::table("empleados")
         ->select("empleados.nombre", "empleados.apellidopaterno", "empleados.apellidomaterno")
         ->where("empleados.rpe", "=", $validacion->RPE)
         ->get();
        ?>
-        @foreach ($content as $key)
-        <td id="nombreUsuario">{{$key->nombre}} {{$key->apellidopaterno}} {{$key->apellidomaterno}}</td>
-        <input type="text" name="nombreUsuario" id="nombreUsuario" value="{{$key->nombre}} {{$key->apellidopaterno}} {{$key->apellidomaterno}}" hidden="true">
-        
-        @endforeach
+
+        <?php
+
+$fuera = 0;
+        foreach ($content as $key){
+            $fuera = $key->apellidopaterno;
+
+        }
+
+        ?>
+
+        <input type="text" name="nombreUsuario" id="nombreUsuario" value="{{$fuera}}" hidden="true">
+        <td id="nombreUsuario">{{$fuera}}</td>
 
         <td id="Nombre">{{$validacion->Nombre}}</td>
         <input type="text" name="Nombre" id="Nombre" value="{{$validacion->Nombre}}" hidden="true">    
 
+        <td id="Descripcion">{{$validacion->Descripcion}}</td>
         <input type="text" name="Descripcion" id="Descripcion" value="{{$validacion->Descripcion}}" hidden="true">
 
-        <td id="Descripcion">{{$validacion->Descripcion}}</td>
-            <input type="text" name="FechaInicio" id="FechaInicio" value="{{$validacion->FechaInicio}}" hidden="true">
         <td id="FechaInicio">{{\Carbon\Carbon::parse($validacion->FechaInicio)->format('d/m/Y')}}</td>
-            <input type="text" name="FechaFin" id="FechaFin" value="{{$validacion->FechaFin}}" hidden="true">
+            <input type="text" name="FechaInicio" id="FechaInicio" value="{{$validacion->FechaInicio}}" hidden="true">
+      
         <td id="FechaFin">{{\Carbon\Carbon::parse($validacion->FechaFin)->format('d/m/Y')}}</td>
+            <input type="text" name="FechaFin" id="FechaFin" value="{{$validacion->FechaFin}}" hidden="true">
+
+            <td id="periodo">{{$validacion->periodo}}</td>
+            <input type="text" name="periodo" id="periodo" value="{{$validacion->periodo}}" hidden="true">
+
+            <td id="autoriza_email" hidden="true">{{$user->email}}</td>
             <input type="text" name="autoriza_email" id="autoriza_email" value="{{$user->email}}" hidden="true">
             {{-- <input type="text" name="rechaza_email" id="rechaza_email" value="{{$user->email}}" hidden="true"> --}}
+
+
 
 
             <td><button class="btn btn-sm btn-success justify-content-between">Autorizar</button></td>
@@ -124,6 +141,7 @@
             <input type="text" name="FechaFin" id="FechaFin" value="{{$validacion->FechaFin}}" hidden="true">
             {{-- <input type="text" name="autoriza_email" id="autoriza_email" value="{{$user->email}}" hidden="true"> --}}
             <input type="text" name="rechaza_email" id="rechaza_email" value="{{$user->email}}" hidden="true">
+            <input type="text" name="periodo" id="periodo" value="{{$validacion->periodo}}" hidden="true">
             <td><button class="btn btn-sm btn-danger row justify-content-between">Rechazar</button></td>
         </form>
     </tr>
@@ -132,7 +150,7 @@
     
     </tbody>
     <div class="d-flex justify-content-end">
-        {{$validaciones->links()}}
+        {{-- {{$validaciones->links()}} --}}
     </div>
     
 </table>

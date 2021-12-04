@@ -38,7 +38,7 @@ class VacacionesController extends Controller
         //$validaciones = Vacaciones::all();
         
         
-        $validaciones = Vacaciones::paginate(10);
+        $validaciones = Vacaciones::all();
 
         $nombres = DB::table('empleados')->join('solicitudes','empleados.RPE', '=', 'solicitudes.RPE')->select('empleados.*')->get()->all();
         $relacion_sec = DB::table("empleados")
@@ -164,6 +164,8 @@ class VacacionesController extends Controller
          }
         }
 
+        
+
         // if($consulta_verificar->role_id == 2)
         //     $vacaciones->autoriza_sec = '1';
         // else if($consulta_verificar->role_id == 3){
@@ -174,6 +176,9 @@ class VacacionesController extends Controller
 
         //$vacaciones->autoriza_jefe = '1';
         $vacaciones->autoriza_email = $request->autoriza_email;
+        $vacaciones->periodo = $request->periodo;
+
+    
 
         $vacaciones->save();
         //return redirect()->route('vacaciones.index');
@@ -227,6 +232,9 @@ class VacacionesController extends Controller
 
         //$vacaciones->autoriza_jefe = '1';
         $vacaciones->rechaza_email = $request->rechaza_email;
+        $vacaciones->periodo = $request->periodo;
+
+        
 
         $vacaciones->save();
         //
@@ -279,6 +287,8 @@ class VacacionesController extends Controller
 
         //$vacaciones->autoriza_jefe = '1';
         $vacaciones->rechaza_email = $request->rechaza_email;
+        
+        
 
         $vacaciones->save();
         //return redirect()->route('vacaciones.index');

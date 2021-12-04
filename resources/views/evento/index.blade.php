@@ -11,6 +11,16 @@
 
 @section('content_header')
 
+{{-- <?php
+
+$content = DB::table("dias_periodos")
+            ->select("dias_periodos.Dias_Disponibles_22", "dias_periodos.Dias_Estimados_22", "dias_periodos.Fecha_ingreso")
+            ->where("dias_periodos.RPE", "=", $solicitud->RPE)
+            ->get();
+
+?> --}}
+
+
 
 @foreach($almacenados as $almacenado)
   <table>
@@ -32,14 +42,65 @@
     <th class="text-center">Descripcion</th>
     <th class="text-center">Fecha Inicio</th>
     <th class="text-center">Fecha Fin</th>
+    <th class="text-center">Dias agendados</th>
     </tr>
     <tbody>
         @foreach ($almacenados as $almacenado)
         <tr>
             <td>{{$almacenado->Nombre}}</td>
             <td>{{$almacenado->Descripcion}}</td>
-            <td>{{\Carbon\Carbon::parse($almacenado->FechaInicio)->format('d/m/Y')}}</td>
+
+              <td>{{\Carbon\Carbon::parse($almacenado->FechaInicio)->format('d/m/Y')}}</td>
             <td>{{\Carbon\Carbon::parse($almacenado->FechaFin)->format('d/m/Y')}}</td>
+            
+            <?php
+            //  $var1 = \Carbon\Carbon::createFromDate($almacenado->FechaInicio);
+            //  $cDate = \Carbon\Carbon::parse($almacenado->FechaFin);
+
+             $start = new DateTime($almacenado->FechaInicio);
+            $end = new DateTime($almacenado->FechaFin);
+
+        //de lo contrario, se excluye la fecha de finalización (¿error?)
+        $end->modify('+1 day');
+
+        $interval = $end->diff($start);
+
+        // total dias
+        $days = $interval->days;
+
+        // crea un período de fecha iterable (P1D equivale a 1 día)
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+
+        // almacenado como matriz, por lo que puede agregar más de una fecha feriada
+        //FECHAS FERIADAS, AGREGAR MÁS SI ES NECESARIO
+        
+            $holidays = ['2023-05-22'];
+            //$holidays = array($feri);
+            //dd($feri);
+            //dd($holidays);
+
+
+        foreach($period as $dt) {
+            $curr = $dt->format('D');
+
+            // obtiene si es Sábado o Domingo
+            if($curr == 'Sat' || $curr == 'Sun') {
+                $days--;
+            }elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+                $days--;
+            }
+           
+        }
+
+        ?>
+      
+            <td>{{$days}}</td>
+
+            
+          
+
+
+
         </tr>
         @endforeach
     </tbody>
