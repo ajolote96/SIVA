@@ -50,7 +50,7 @@
                                     </td>
                                     <td>
                                         <label for="">Fecha Fin:</label>
-                                        <input type="text" name="Nombre" id="Nombre" value="{{$periodos->FechaFin}}">
+                                        <input type="date" name="Nombre" id="Nombre" value="{{$periodos->FechaFin}}">
                                     </td>
                                     
                                 </tr>

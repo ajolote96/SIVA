@@ -121,12 +121,12 @@
                                     {{$periodo->FechaFin}}
                                 </td>
                                 <td>
-                                    <form action="{{route('diaferiado.destroy', $periodo->id)}}" method="post">
+                                    <form action="{{route('periodo.destroy', $periodo->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-danger row justify-content-between">Eliminar</button>
                                     </form>
-                                    <a href="{{ route('diaferiado.edit', $periodo->id)}}" class="btn btn-sm btn-primary row justify-content-between">Editar</a>
+                                    <a href="{{ route('periodo.edit', $periodo->id)}}" class="btn btn-sm btn-primary row justify-content-between">Editar</a>
                                 </td>
                             </tr>
                             @endforeach

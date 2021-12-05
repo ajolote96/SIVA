@@ -1,5 +1,4 @@
 
-
 @extends('layouts.app')
 @section('content')
 
@@ -36,6 +35,7 @@ $content = DB::table("dias_periodos")
 
   @endforeach
 
+
   <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
     <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
     <th class="text-center">Periodo</th>
@@ -43,6 +43,7 @@ $content = DB::table("dias_periodos")
     <th class="text-center">Fecha Inicio</th>
     <th class="text-center">Fecha Fin</th>
     <th class="text-center">Dias agendados</th>
+    <th class="text-center">Status</th>
     </tr>
     <tbody>
         @foreach ($almacenados as $almacenado)
@@ -95,12 +96,34 @@ $content = DB::table("dias_periodos")
         ?>
       
             <td>{{$days}}</td>
+            <?php
+            $content = DB::table('solicitudes')
+              ->select("solicitudes.autoriza_sec", "solicitudes.autoriza_jefe", "solicitudes.rechaza_sec", "solicitudes.rechaza_jefe")
+              ->where("solicitudes.RPE", "=", $almacenado->RPE)
+              ->get();
 
-            
+            foreach ($content as $key) {
+                      
+              $a_sec = $key->autoriza_sec;
+              $a_jefe = $key->autoriza_jefe;
+              $r_sec = $key->rechaza_sec;
+              $r_jefe = $key->rechaza_jefe;
+
+              if ($a_sec== 1 && $a_jefe == 1) {
+                echo '<td> Autorizado </td>';
+              } elseif ($r_sec==1 || $r_jefe == 1) {
+                echo '<td> Rechazado </td>';
+              } else {
+                echo '<td> Pendiente </td>';
+              }
+            }
+              //dd($content);
+
+              
+
           
 
-
-
+            ?>
         </tr>
         @endforeach
     </tbody>

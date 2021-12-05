@@ -29,7 +29,7 @@
 @section('title', 'SIPSUTERMCFE')
 
 
-    <h1>Registro de Vacaciones Empleados</h1><br/>
+    <h1 id="titulo">Registro de Vacaciones Empleados</h1><br/>
 
 
 
@@ -55,16 +55,17 @@ foreach ($periodos as $key) {
             $hoy = date("Y-m-d");
 
 
-            $array = array($ini, $fin, $hoy);
+            //$array = array($ini, $fin, $hoy);
 
             //dd($array);
 
             //dd($periodo);
             
-                if ($ini >= $hoy && $fin <= $hoy) {
-                    echo '<script type="text/javascript">',
-                            'esconderBoton();',
-                            '</script>';
+                if ($hoy >= $ini && $hoy <= $fin) {
+                    $d = 1;
+                    
+                } else {
+                    $d = 0;
                 }
 
             
@@ -312,7 +313,7 @@ for($a=0; $a<=15; $a++){
 }
 ?>
 
-<div class="alert alert-success text-center" role="alert">
+<div class="alert alert-success text-center" role="alert" id="p">
     <?php echo "Tienes ",  $diasHabiles22, " días que puedes disfrutar hasta en 4 periodos durante
     todo el 2022 en caso de que necesites tomar más días podrías agendar hasta ", $diasEstimados22, " días después de tu fecha de ingreso que es ", $fechaIngreso, " que corresponde del periodo 2022 al 2023"; ?>
 </div>
@@ -490,6 +491,14 @@ for($a=0; $a<=15; $a++){
 
 
 <?php
+
+
+if($d == 0){
+    echo '<script type="text/javascript">',
+     'esconderperiodos();',
+     '</script>';
+    echo '<h2 style="color:red;">Modulo de registrar vacaciones deshabilitado</h2>';
+}
 
 if($diasHabiles22 == 0){
     echo '<script type="text/javascript">',

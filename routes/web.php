@@ -45,7 +45,7 @@ Route::get('/', function () {
 //Rutas para la eleaboracion de periodos
 Route::get('/periodo', [PeriodoController::class, 'index']);
 Route::post('/periodo', [PeriodoController::class, 'store'])->name('periodo.store');
-Route::resource('solicitud', PeriodoController::class)->middleware('can:diaferiado');
+Route::resource('/periodo', PeriodoController::class)->middleware('can:diaferiado');
 
 
 //Rutas para las solicitudes

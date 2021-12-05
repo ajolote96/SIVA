@@ -2,7 +2,6 @@
 function validarDias(){
     let fechaInicio = document.getElementById("FechaInicio").value;
     let fechaFinal = document.getElementById("FechaFinal").value;
-
 }
 
 
@@ -124,6 +123,17 @@ return result-contador;*/
 
 }
 
+function esconderperiodos(){
+    document.getElementById('periodo22').hidden=true;
+    document.getElementById('formulario22').hidden=true;
+    document.getElementById('p').hidden=true;
+    document.getElementById('titulo').hidden=true;
+    document.getElementById('peri').style.display="none";
+    document.getElementById('formularioActual').style.display="none";
+    document.getElementById('registroh2').style.display="none";
+    document.getElementById('pDias').style.display="none";
+ 
+ }
 
 function esconderBoton(){
     document.getElementById('periodo22').hidden=false;
@@ -132,9 +142,7 @@ function esconderBoton(){
     document.getElementById('formularioActual').style.display="none";
     document.getElementById('registroh2').style.display="none";
     document.getElementById('pDias').style.display="none";
-  
-
-  
+ 
  }
 
  function esconderBoton2(){
