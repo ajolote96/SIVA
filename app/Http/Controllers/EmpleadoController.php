@@ -6,7 +6,7 @@ use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 Use App\Models\User;
 use Carbon\Carbon;
@@ -35,9 +35,28 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-
-        $empleados = Empleado::all();
-        return view ('empleado.index', compact('empleados'));
+        $user = Auth::user();
+        $rol = DB::table('model_has_roles')
+        ->where('model_id','LIKE',"%$user->id%")
+        ->where('role_id','=','2')
+        ->count();
+        $contadorAux = Empleado::query()
+            ->select('IdLugarDeTrabajo')
+            ->where('CorreoElectronico','LIKE',"%$user->email%")
+            ->count();
+        if($rol==1 && $contadorAux>=1){
+            $lugarTrabajo = Empleado::query()
+            ->select('IdLugarDeTrabajo')
+            ->where('CorreoElectronico','LIKE',"%$user->email%")
+            ->get();
+                $trabajo = $lugarTrabajo[0]->IdLugarDeTrabajo;
+                $empleados = DB::table('empleados')->where('empleados.IdLugarDeTrabajo','LIKE',"%$trabajo%")->get();
+                //dd($lugarTrabajo[0]->IdLugarDeTrabajo);
+        }
+        else{
+            $empleados = Empleado::all();
+        }
+        return view ('empleado.index', compact('empleados','rol'));
     }
 
     /**

@@ -21,6 +21,8 @@ class PorcentajeEmpleadoController extends Controller
         $datosempleado = request()->except('_token');
        // $valor = $request->get("buscar");
         $valor = $request->get("porcentajeEmpleadoS");
+        $fechaInicio = $request->get("FechaInicio");
+        $fechaFinal = $request->get("FechaFinal");
         if($valor===null){ 
             $valor = "CHAPALA";
         }
@@ -47,10 +49,19 @@ class PorcentajeEmpleadoController extends Controller
        ->where("zonas.Nombre","LIKE","%$valor%")
        ->count();
 
+       $consultaOcupados3 = DB::table('solicitudes')
+       ->join('empleados','empleados.RPE','=','solicitudes.RPE')
+       ->join('lugar_de_trabajos','lugar_de_trabajos.id','=','empleados.IdLugarDeTrabajo')
+       ->join('zonas','zonas.id_zona','=','lugar_de_trabajos.Id_zona_F')
+       ->where("zonas.Nombre","LIKE","%$valor%")
+       ->whereBetween('FechaInicio',[$fechaInicio,$fechaFinal])
+       ->where([['solicitudes.autoriza_sec', '=', '1'],['solicitudes.autoriza_jefe', '=', '1'],])
+       ->count();
+
        $cantidadEmpleados = $consultaPosiciones;
         $consultaPosiciones = (15/100)*$consultaPosiciones;
         $consultaPosiciones = round($consultaPosiciones);
-        return view('porcentajeEmpleado.index',compact('porcentajes','zona','consultaPosiciones','cantidadEmpleados','consultaOcupados','consultaOcupados2'));
+        return view('porcentajeEmpleado.index',compact('porcentajes','zona','consultaPosiciones','cantidadEmpleados','consultaOcupados','consultaOcupados3'));
     }
 
     /**

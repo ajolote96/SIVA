@@ -22,6 +22,20 @@
         </select>
     </div>
     <br/>
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                Fecha Inical
+                <input type="date" class="form-control" name="FechaInicio" id="FechaInicio">
+            </div>
+            <br/>
+            <div class="col-md-auto">
+                Fecha Final
+                <input type="date" class="form-control" name="FechaFinal" id="FechaFinal"> 
+            </div>
+        </div>
+    </div>
+    <br/>
        <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
         <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
         <th class="text-center">ID</th>
@@ -40,12 +54,15 @@
             <td>{{$zona->Nombre}}</td>
             <td>@php echo $cantidadEmpleados; @endphp</td>
             <td>@php echo $consultaPosiciones; @endphp</td>
-            <td>@php echo $consultaOcupados2; @endphp</td>
+            <td>@php echo $consultaOcupados3; @endphp</td>
         </tr>
         @endforeach
             </table> 
             
-            <input type="submit" class="btn btn-success" action = "{{url('/porcentajeEmpleado/'.'porcentajeEmpleado')}}"></button>
+            <div class="row justify-content-md-center">
+                <input type="submit" class="btn btn-success" action = "{{url('/porcentajeEmpleado/'.'porcentajeEmpleado')}}"></button>     
+            </div>
+
 </form>
 
 <br><br>

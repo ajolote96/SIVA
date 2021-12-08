@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'inicio',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -314,9 +314,19 @@ return [
             ],*/
             [
                 'text' => 'Gestión empleados',
-                'url'  => 'empleado',
+                'url'  => '#',
                 'icon' => 'fas fa-fw fa-users',
                 'can' => 'empleados',
+                'submenu' => [
+                    [
+                    'text' => 'Empleados',
+                    'url' => 'empleado',
+                    ],
+                    [
+                    'text' => 'Posiciones',
+                    'url' => 'porcentajeEmpleado',
+                    ],
+                ],
              //   'submenu' => [
                 // [
                 //     'text' => 'Alta',
