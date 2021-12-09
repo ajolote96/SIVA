@@ -96,30 +96,45 @@ $content = DB::table("dias_periodos")
         ?>
       
             <td>{{$days}}</td>
-            <?php
-            $content = DB::table('solicitudes')
-              ->select("solicitudes.autoriza_sec", "solicitudes.autoriza_jefe", "solicitudes.rechaza_sec", "solicitudes.rechaza_jefe")
-              ->where("solicitudes.RPE", "=", $almacenado->RPE)
-              ->get();
-            foreach($content as $key){ 
-              $a_sec = $key->autoriza_sec;
-              $a_jefe = $key->autoriza_jefe;
-              $r_sec = $key->rechaza_sec;
-              $r_jefe = $key->rechaza_jefe;
-
-              if ($a_sec== 1 && $a_jefe == 1) {
-                echo '<td> Autorizado </td>';
-              } elseif ($r_sec==1 || $r_jefe == 1) {
-                echo '<td> Rechazado </td>';
-              } else {
-                echo '<td> Pendiente </td>';
-              }
-            }
-              //dd($content);
-
-            ?>
-        </tr>
+              @if ($almacenado->autoriza_sec == 1 && $almacenado->autoriza_jefe == 1)
+              <td>Aceptado</td>
+              @elseif ($almacenado->rechaza_sec == 1 || $almacenado->rechaza_jefe==1)
+              <td>Rechazado</td>
+              @else
+              <td>Pendiente</td>
+              @endif
+          </tr>
         @endforeach
+        {{-- 
+         // <?php
+          // $content = DB::table('solicitudes')
+          //   ->select("solicitudes.autoriza_sec", "solicitudes.autoriza_jefe", "solicitudes.rechaza_sec", "solicitudes.rechaza_jefe")
+          //   ->where("solicitudes.RPE", "=", $almacenado->RPE)
+          //   ->get();
+
+          // foreach($content as $key){
+          //   echo '<tr>';
+          //   $a_sec = $key->autoriza_sec;
+          //   $a_jefe = $key->autoriza_jefe;
+          //   $r_sec = $key->rechaza_sec;
+          //   $r_jefe = $key->rechaza_jefe;
+          //   if ($a_sec== 1 && $a_jefe == 1) {
+          //     echo '<td> Autorizado </td>';
+          //   } elseif ($r_sec==1 || $r_jefe == 1) {
+          //     echo 'Rechazado';
+          //   } else {
+          //     echo '<td> else </td>';
+          //   }
+          //   echo '</tr>';
+          // }
+          
+          //   //dd($content);
+
+          // ?>
+          
+          --}}
+         
+    
     </tbody>
 </table>
 

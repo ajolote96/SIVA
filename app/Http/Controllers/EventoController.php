@@ -30,7 +30,7 @@ class EventoController extends Controller
         ->get();
         return view('evento.index')->with('eventos',$eventos);*/
         $almacenados = \DB::table('solicitudes')
-           ->select('id','RPE','Nombre','Descripcion','FechaInicio','FechaFin')->where('RPE','=',$result->RPE)
+           ->select()->where('RPE','=',$result->RPE)
            ->get();
        return view('evento.index')->with('almacenados',$almacenados);
     }

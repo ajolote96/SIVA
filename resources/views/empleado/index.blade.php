@@ -30,8 +30,7 @@
                                     <th>RPE</th>
                                     <th>Nombre</th>
                                     <th>Correo electrónico</th>
-                                    <th>Id Lugar de Trabajo</th>
-                                    <th>Id Zona</th>
+                                    <th>Id Lugar de Trabajo</th>      
                                     <th>Acciones</th>
                         
                                 </tr>
@@ -43,9 +42,6 @@
                                 <td>{{ $empleado->Nombre }}{{ $empleado->ApellidoPaterno}}{{ $empleado->ApellidoMaterno}}</td>
                                 <td>{{ $empleado->CorreoElectronico }}</td>
                                 <td>{{ $empleado->IdLugarDeTrabajo }}</td>
-                                <td>{{ $empleado->FechaNacimiento}}</td>
-                                
-                    
                                  <td>
                                 <a href="{{ url('/empleado/'.$empleado->id.'/edit') }}" class="btn btn-warning">
                                 Editar
