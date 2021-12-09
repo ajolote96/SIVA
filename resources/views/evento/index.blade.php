@@ -101,9 +101,7 @@ $content = DB::table("dias_periodos")
               ->select("solicitudes.autoriza_sec", "solicitudes.autoriza_jefe", "solicitudes.rechaza_sec", "solicitudes.rechaza_jefe")
               ->where("solicitudes.RPE", "=", $almacenado->RPE)
               ->get();
-
-            foreach ($content as $key) {
-                      
+            foreach($content as $key){ 
               $a_sec = $key->autoriza_sec;
               $a_jefe = $key->autoriza_jefe;
               $r_sec = $key->rechaza_sec;
@@ -118,10 +116,6 @@ $content = DB::table("dias_periodos")
               }
             }
               //dd($content);
-
-              
-
-          
 
             ?>
         </tr>

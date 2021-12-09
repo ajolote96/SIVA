@@ -41,7 +41,7 @@
 use Carbon\Carbon;
 $dbDate = \Carbon\Carbon::parse($solicitud->FechaIngreso);
 //$diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
-
+$d=0;
 $days = 0;
 $dbDateRPE = $solicitud->RPE;
 

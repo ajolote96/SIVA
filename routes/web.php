@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CapacitacionController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DiaFeriadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadoController;
@@ -47,7 +48,12 @@ Route::get('/periodo', [PeriodoController::class, 'index']);
 Route::post('/periodo', [PeriodoController::class, 'store'])->name('periodo.store');
 Route::resource('/periodo', PeriodoController::class)->middleware('can:diaferiado');
 
+Route::get('cambiarContrasena', [ChangePasswordController::class, 'index'])->middleware('can:cambiarContrasena')->name('cambiarContrasena.index');
 
+Route::get('cambiarContrasena', [ChangePasswordController::class, 'edit'])->middleware('can:cambiarContrasena')->name('cambiarContrasena.edit');
+
+
+Route::resource('/cambiarContrasena', ChangePasswordController::class)->middleware('can:empleados');   
 //Rutas para las solicitudes
 Route::get('/solicitud', [SolicitudController::class, 'index']);
 Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
@@ -91,7 +97,7 @@ Route::get('formato/excel', [SolicitudController::class, 'export'])->middleware(
 Route::get('/usuario/create', [EmpleadoController::class,'create']);
 */
 
-Route::resource('empleado', EmpleadoController::class)->middleware('auth');
+Route::resource('empleado', EmpleadoController::class)->middleware('can:empleados');
 Route::resource('capacitacion', CapacitacionController::class)->middleware('auth');
 Route::resource('direccion', DireccionController::class)->middleware('auth');
 Route::resource('solicitud', SolicitudController::class)->middleware('auth');

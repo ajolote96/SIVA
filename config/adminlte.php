@@ -321,10 +321,17 @@ return [
                     [
                     'text' => 'Empleados',
                     'url' => 'empleado',
+                    'can' => 'empleados'
                     ],
                     [
                     'text' => 'Posiciones',
                     'url' => 'porcentajeEmpleado',
+                    'can' => 'empleados'
+                    ],
+                    [
+                    'text' => 'Cambiar Contraseña',
+                    'url' => 'cambiarContrasena',
+                    'can' => 'empleados'
                     ],
                 ],
              //   'submenu' => [

@@ -8,10 +8,6 @@
 @csrf
 {{ method_field('PATCH') }}
 @include('empleado.form',['modo'=>'Editar'])
-
-
-
-
 </form>
 </div>
 @stop
