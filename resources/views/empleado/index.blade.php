@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'SIPSUTERMCFE')
+@section('title', 'SIVA')
 @section('content_header')
 
 
