@@ -39,7 +39,7 @@
                                     Roles
                                 </th>
                                 <th class="text-center">
-                                    Accion
+                                    Id trabajo
                                 </th>
                             
                             </tr>
@@ -66,6 +66,21 @@
                                 @endif 
                                 
                                 </td>
+                               
+                                   <?php
+                                $content = DB::table("empleados")
+                                ->select("empleados.IdLugarDeTrabajo")
+                                ->where("empleados.CorreoElectronico", "=", $userr->email)
+                                ->get();
+
+                                
+
+                                foreach ($content as $key) {
+                                    echo "<td>$key->IdLugarDeTrabajo</td>";
+                                }
+
+                                ?>
+                                
                                
                                 <td>
                                     <a href="{{route('admin.users.edit', $userr->id)}}" method="post" class="btn btn-sm btn-primary row justify-content-between">Editar</a>
