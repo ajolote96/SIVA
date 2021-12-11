@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 Use App\Models\User;
 use Carbon\Carbon;
 
@@ -104,6 +105,7 @@ class EmpleadoController extends Controller
             'ContactoEmergencia'=>'required|string|max:100',
             'TelefonoEmergencia'=>'required|integer',
             'CursosParticipaba'=>'required|string|max:100',
+            'Password' => 'required|string|max:100'
 
         ];
         $mensaje=[
@@ -116,8 +118,16 @@ class EmpleadoController extends Controller
 
         //$datosempleado = request()->all();
         $datosempleado = request()->except('_token');
+        
 
         Empleado::insert($datosempleado);
+
+        $correo = $request->input('CorreoElectronico');
+        $contrasena =$request->input('Password');
+        $nombre = $request->input('Nombre');
+        //return response()->json($datosempleado);
+        $contrasena = Hash::make($contrasena);
+        DB::insert("insert into users (name, email, password) values ('$nombre', '$correo' , '$contrasena')");
 
         //return response()->json($datosempleado);
         return redirect('empleado')->with('mensaje','empleado agregado con exito');

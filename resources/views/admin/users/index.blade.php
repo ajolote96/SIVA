@@ -41,6 +41,7 @@
                                 <th class="text-center">
                                     Id trabajo
                                 </th>
+                                
                             
                             </tr>
                         </thead>

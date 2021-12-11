@@ -31,10 +31,6 @@
 
     <h1 id="titulo">Registro de Vacaciones Empleados</h1><br/>
 
-
-
-
-
 <?php
 
 

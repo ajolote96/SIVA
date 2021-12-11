@@ -167,6 +167,12 @@ TelefonoCelular') }}">
 <input type="text" class="form-control" name="CorreoElectronico" id="CorreoElectronico" value="{{ isset($empleado->CorreoElectronico)?$empleado->CorreoElectronico:old('CorreoElectronico') }}">
 </div>
 
+<div class="form-group">
+  <label for="Password"> Contraseña de usuario </label>
+  <input type="text" class="form-control" name="Password" id="Password" value="{{ isset($empleado->Password)?$empleado->Password:old('Password') }}">
+  </div>
+
+
 
 <div class="form-group">
 <label for="Sexo"> Sexo </label>

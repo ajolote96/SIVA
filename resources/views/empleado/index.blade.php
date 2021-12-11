@@ -39,7 +39,7 @@
                             @foreach($empleados as $empleado)
                             <tr>
                                 <td>{{ $empleado->RPE }}</td>
-                                <td>{{ $empleado->Nombre }}{{ $empleado->ApellidoPaterno}}{{ $empleado->ApellidoMaterno}}</td>
+                                <td>{{ $empleado->Nombre }} {{ $empleado->ApellidoPaterno}} {{ $empleado->ApellidoMaterno}}</td>
                                 <td>{{ $empleado->CorreoElectronico }}</td>
                                 <td>{{ $empleado->IdLugarDeTrabajo }}</td>
                                  <td>
