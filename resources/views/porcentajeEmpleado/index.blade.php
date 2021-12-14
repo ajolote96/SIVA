@@ -11,6 +11,9 @@
 @endsection
 
 @section('title', 'SIPSUTERMCFE')
+@php
+    $hidden="hidden";
+@endphp
 <form action = "{{url('/porcentajeEmpleado/')}}" method="get">
     <div>
         <h1 class="text-center">Personal Disponible</h1><br/>
@@ -36,32 +39,56 @@
         </div>
     </div>
     <br/>
+    <div class="row justify-content-md-center">
+        <input type="submit" class="btn btn-success" action = "{{url('/porcentajeEmpleado/'.'porcentajeEmpleado')}}"></button>     
+    </div><br>
        <table class="table table-bordered table-hover table-sortable text-center" id="tab_logic">
         <thead class="table-dark" style="background-color:rgb(42, 122, 5)">
         <th class="text-center">ID</th>
         <th class="text-center">Nombre</th>
         <th class="text-center">Cantidad de empleados</th>
         <th class="text-center">Posiciones disponibles</th>
-        <th class="text-center">Posiciones ocupadas</th>
-        </tr>
-        <tbody>
-            @php
-                $nombre = "zonas.id_zona";
-            @endphp
-        @foreach ($zona as $zona)
-        <tr>
-            <td>{{$zona->id_zona}}</td>
-            <td>{{$zona->Nombre}}</td>
-            <td>@php echo $cantidadEmpleados; @endphp</td>
-            <td>@php echo $consultaPosiciones; @endphp</td>
-            <td>@php echo $consultaOcupados3; @endphp</td>
-        </tr>
-        @endforeach
+            @if ($cantidadEmpleados!=NULL)
+            <th class="text-center">Posiciones ocupadas</th>
+            </tr>
+            <tbody>
+            @foreach ($zona as $zona)
+            <tr>
+                <td>{{$zona->id_zona}}</td>
+                <td>{{$zona->Nombre}}</td>
+                <td>@php echo $cantidadEmpleados; @endphp</td>
+                <td>@php echo $consultaPosiciones; @endphp</td>
+                <td>@php echo $consultaOcupados3; @endphp</td>
+            </tr>
+            @endforeach
+            @else
+            </tr>
+            <tbody>
+            @foreach ($porcentajes as $zona)
+            <tr>
+                <td>{{$zona->id_zona}}</td>
+                <td>{{$zona->Nombre}}</td>
+                <td>@php 
+                $consultaEmpleados = DB::table('zonas')->join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
+                ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')
+                ->where("zonas.Nombre","LIKE","%$zona->Nombre%")
+                ->count('empleados.RPE');
+                echo $consultaEmpleados;
+                @endphp</td>
+                <td>@php 
+                $consultaPosiciones = DB::table('zonas')->join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
+                ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')
+                ->where("zonas.Nombre","LIKE","%$zona->Nombre%")
+                ->count('empleados.RPE');
+                $consultaPosiciones = (15/100)*$consultaPosiciones;
+                $consultaPosiciones = round($consultaPosiciones);
+                echo $consultaPosiciones; @endphp</td>
+            </tr>
+            @endforeach
+            @endif
             </table> 
             
-            <div class="row justify-content-md-center">
-                <input type="submit" class="btn btn-success" action = "{{url('/porcentajeEmpleado/'.'porcentajeEmpleado')}}"></button>     
-            </div>
+
 
 </form>
 

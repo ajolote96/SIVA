@@ -24,16 +24,19 @@ class PorcentajeEmpleadoController extends Controller
         $fechaInicio = $request->get("FechaInicio");
         $fechaFinal = $request->get("FechaFinal");
         if($valor===null){ 
-            $valor = "CHAPALA";
+            $valor = "NULL";
         }
         $porcentajes = PorcentajeEmpleado::all();
         $zona = PorcentajeEmpleado::where("zonas.Nombre","LIKE","%$valor%")->select()->get();
-        $lugar_trabajo = DB::table('lugar_de_trabajos')->join('zonas','zonas.id_zona','=','lugar_de_trabajos.Id_zona_F')->get();
+        
+       $lugar_trabajo = DB::table('lugar_de_trabajos')->join('zonas','zonas.id_zona','=','lugar_de_trabajos.Id_zona_F')->get();
         $empleado = DB::table('empleados')->join('lugar_de_trabajos','lugar_de_trabajos.id','=','empleados.IdLugarDeTrabajo')->get();
         $solicitud = DB::table('solicitudes')->join('empleados','empleados.RPE','=','solicitudes.RPE')->select()->get();
        
         $consultaPosiciones = PorcentajeEmpleado::join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
-       ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')->where("zonas.Nombre","LIKE","%$valor%")->count('empleados.RPE');
+       ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')
+       ->where("zonas.Nombre","LIKE","%$valor%")
+       ->count('empleados.RPE');
        
        $consultaOcupados = PorcentajeEmpleado::join('lugar_de_trabajos','lugar_de_trabajos.Id_zona_F','=','zonas.id_zona')
        ->join('empleados','empleados.IdLugarDeTrabajo','=','lugar_de_trabajos.id')
