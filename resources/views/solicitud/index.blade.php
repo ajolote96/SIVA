@@ -383,7 +383,7 @@ for($a=0; $a<=15; $a++){
                                     }else{alert('No puedes elegir más días de los correspondientes')}"> 
                                     </td>
                                     <td>
-                                        <textarea name="Descripcion" placeholder="Description" class="form-control" id="Descripcion"></textarea>
+                                        <textarea name="Descripcion" placeholder="Description" class="form-control" id="Descripcion" required></textarea>
                                     </td>
                                     <td>
                                         <input type="text" hidden="hidden" class="form-control" name="periodo1" id="periodo1" value="actual"> 
